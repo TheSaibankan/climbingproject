@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Test de lecture de liste 2</title>
+</head>
+<body>
+<h1>Liste des sites d'escalade</h1>
+<table>
+    <tr>
+        <th>ID</th>
+        <th>Nom</th>
+        <th>Popularité</th>
+    </tr>
+    <tr th:each="site : ${climbingsites}">
+        <td th:text="${site.id}">1</td>
+        <td th:text="${site.name}">Aubagne</td>
+        <td th:text="${site.popularity}">2.5</td>
+    </tr>
+</table>
+</body>
+</html>
