@@ -1,9 +1,11 @@
 package com.oc6ad.climbingproject.model;
 
 import javax.persistence.*;
+import java.util.HashSet;
+import java.util.Set;
 
 @Entity
-public class ClimbingSite {
+public class ClimbingSpot {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
@@ -12,19 +14,24 @@ public class ClimbingSite {
     private String name;
     private String location;
     private boolean isOfficial;
-    private double popularity;
+    private String cotation;
 
     @ManyToOne
     private UserAccount userAccount;
 
-    public ClimbingSite() {
+    @OneToMany
+    private Set<Sector> sectors = new HashSet<>();
+
+    public ClimbingSpot() {
     }
 
-    public ClimbingSite(String name, String location, boolean isOfficial, double popularity) {
+    public ClimbingSpot(Long id, String name, String location, boolean isOfficial, String cotation, UserAccount userAccount) {
+        this.id = id;
         this.name = name;
         this.location = location;
         this.isOfficial = isOfficial;
-        this.popularity = popularity;
+        this.cotation = cotation;
+        this.userAccount = userAccount;
     }
 
     public UserAccount getUserAccount() {
@@ -67,22 +74,32 @@ public class ClimbingSite {
         isOfficial = official;
     }
 
-    public double getPopularity() {
-        return popularity;
+    public String getCotation() {
+        return cotation;
     }
 
-    public void setPopularity(double popularity) {
-        this.popularity = popularity;
+    public void setCotation(String cotation) {
+        this.cotation = cotation;
+    }
+
+    public Set<Sector> getSectors() {
+        return sectors;
+    }
+
+    public void setSectors(Set<Sector> sectors) {
+        this.sectors = sectors;
     }
 
     @Override
     public String toString() {
-        return "ClimbingSite{" +
+        return "ClimbingSpot{" +
                 "id=" + id +
                 ", name='" + name + '\'' +
                 ", location='" + location + '\'' +
                 ", isOfficial=" + isOfficial +
-                ", popularity=" + popularity +
+                ", cotation='" + cotation + '\'' +
+                ", userAccount=" + userAccount +
+                ", sectors=" + sectors +
                 '}';
     }
 
@@ -91,7 +108,7 @@ public class ClimbingSite {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
 
-        ClimbingSite that = (ClimbingSite) o;
+        ClimbingSpot that = (ClimbingSpot) o;
 
         return id != null ? id.equals(that.id) : that.id == null;
     }

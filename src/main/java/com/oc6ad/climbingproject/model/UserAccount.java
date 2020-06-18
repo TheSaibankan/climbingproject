@@ -2,6 +2,7 @@ package com.oc6ad.climbingproject.model;
 
 import javax.persistence.*;
 import java.util.HashSet;
+import java.util.Objects;
 import java.util.Set;
 
 @Entity(name = "user_account")
@@ -21,9 +22,11 @@ public class UserAccount {
     @ManyToMany(mappedBy = "userAccounts")
     private Set<Topo> topos = new HashSet<>();
 
-    @OneToMany(cascade = CascadeType.ALL)
-    @JoinColumn(name = "climbingsite_id")
-    private Set<ClimbingSite> climbingSites = new HashSet<>();
+    @OneToMany
+    private Set<ClimbingSpot> climbingSpots = new HashSet<>();
+
+    @OneToMany
+    private Set<Comment> comments = new HashSet<>();
 
     public UserAccount() {
 
@@ -38,12 +41,12 @@ public class UserAccount {
         this.isAdmin = isAdmin;
     }
 
-    public Set<ClimbingSite> getClimbingSites() {
-        return climbingSites;
+    public Set<ClimbingSpot> getClimbingSpots() {
+        return climbingSpots;
     }
 
-    public void setClimbingSites(Set<ClimbingSite> climbingSites) {
-        this.climbingSites = climbingSites;
+    public void setClimbingSpots(Set<ClimbingSpot> climbingSpots) {
+        this.climbingSpots = climbingSpots;
     }
 
     public Long getId() {
@@ -129,11 +132,14 @@ public class UserAccount {
 
         UserAccount that = (UserAccount) o;
 
-        return id != null ? id.equals(that.id) : that.id == null;
+        return Objects.equals(login, that.login) && Objects.equals(email, that.email);
+
     }
 
     @Override
     public int hashCode() {
-        return id != null ? id.hashCode() : 0;
+        int result = email != null ? email.hashCode() : 0;
+        result = 31 * result + (login != null ? login.hashCode() : 0);
+        return result;
     }
 }
