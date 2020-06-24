@@ -18,6 +18,7 @@ public class UserAccount {
     private String login;
     private String password;
     private boolean isAdmin;
+    private String salt;
 
     @ManyToMany(mappedBy = "userAccounts")
     private Set<Topo> topos = new HashSet<>();
@@ -32,13 +33,31 @@ public class UserAccount {
 
     }
 
-    public UserAccount(String firstName, String lastName, String email, String login, String password, boolean isAdmin) {
+    public UserAccount(Long id, String firstName, String lastName, String email, String login, String password, boolean isAdmin, String salt) {
+        this.id = id;
         this.firstName = firstName;
         this.lastName = lastName;
         this.email = email;
         this.login = login;
         this.password = password;
         this.isAdmin = isAdmin;
+        this.salt = salt;
+    }
+
+    public String getSalt() {
+        return salt;
+    }
+
+    public void setSalt(String salt) {
+        this.salt = salt;
+    }
+
+    public Set<Comment> getComments() {
+        return comments;
+    }
+
+    public void setComments(Set<Comment> comments) {
+        this.comments = comments;
     }
 
     public Set<ClimbingSpot> getClimbingSpots() {

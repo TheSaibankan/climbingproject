@@ -2,6 +2,7 @@ package com.oc6ad.climbingproject.model;
 
 import javax.persistence.*;
 import java.util.HashSet;
+import java.util.Objects;
 import java.util.Set;
 
 @Entity(name = "topos")
@@ -106,14 +107,13 @@ public class Topo {
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
-
         Topo topo = (Topo) o;
-
-        return id != null ? id.equals(topo.id) : topo.id == null;
+        return Objects.equals(name, topo.name) &&
+                Objects.equals(releaseDate, topo.releaseDate);
     }
 
     @Override
     public int hashCode() {
-        return id != null ? id.hashCode() : 0;
+        return Objects.hash(name, releaseDate);
     }
 }

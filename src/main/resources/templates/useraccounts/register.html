@@ -5,7 +5,7 @@
     <title>Inscription</title>
 </head>
 <body>
-<form th:action="@{/register}" th:object="${userAccount}" method="post">
+<form th:action="@{/users/registersave}" th:object="${userAccount}" method="post">
     Nom :
     <input type="text" th:field="*{lastName}">
     <br/>

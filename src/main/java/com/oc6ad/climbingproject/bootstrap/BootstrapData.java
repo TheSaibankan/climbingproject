@@ -26,10 +26,6 @@ public class BootstrapData implements CommandLineRunner {
     @Override
     public void run(String... args) throws Exception {
 
-        Topo topo1 = new Topo("Topo 1","Description of topo 1", "France", "28/12/1996", true);
-
-        topoRepo.save(topo1);
-
         System.out.println("--- Statistiques et état de la base de données ---");
         System.out.println("Nombre de topos : " + topoRepo.count());
         System.out.println("Nombre d'utilisateurs : " + userAccountRepo.count());

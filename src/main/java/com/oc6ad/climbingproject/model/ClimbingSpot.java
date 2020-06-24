@@ -2,6 +2,7 @@ package com.oc6ad.climbingproject.model;
 
 import javax.persistence.*;
 import java.util.HashSet;
+import java.util.Objects;
 import java.util.Set;
 
 @Entity
@@ -107,14 +108,13 @@ public class ClimbingSpot {
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
-
         ClimbingSpot that = (ClimbingSpot) o;
-
-        return id != null ? id.equals(that.id) : that.id == null;
+        return Objects.equals(name, that.name) &&
+                Objects.equals(location, that.location);
     }
 
     @Override
     public int hashCode() {
-        return id != null ? id.hashCode() : 0;
+        return Objects.hash(name, location);
     }
 }

@@ -2,9 +2,7 @@ package com.oc6ad.climbingproject.controllers;
 
 import com.oc6ad.climbingproject.model.UserAccount;
 import com.oc6ad.climbingproject.repositories.UserAccountRepo;
-import org.apache.catalina.User;
-import org.dom4j.rule.Mode;
-import org.springframework.beans.factory.annotation.Autowired;
+import com.oc6ad.climbingproject.services.UserAccountService;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -13,35 +11,29 @@ import org.springframework.web.bind.annotation.*;
 @RequestMapping("/users")
 public class UserAccountController {
 
-    private final UserAccountRepo userAccountRepo;
+    private final UserAccountService userAccountService;
 
-    public UserAccountController(UserAccountRepo userAccountRepo) {
-        this.userAccountRepo = userAccountRepo;
+    public UserAccountController(UserAccountService userAccountService) {
+        this.userAccountService = userAccountService;
     }
 
 
     @RequestMapping("/all")
     public String getUserAccounts(Model model) {
-
-        model.addAttribute("useraccounts", userAccountRepo.findAll());
-
+        model.addAttribute("useraccounts", userAccountService.findAll());
          return "useraccounts/list";
     }
+
     @GetMapping("/register")
     public String getFormNewUserAccount(Model model){
         model.addAttribute("userAccount", new UserAccount());
         return "useraccounts/register";
     }
-    @GetMapping("/register/{id}")
-    public String getFormUserAccount(Model model, @PathVariable Long id){
-        model.addAttribute("userAccount",userAccountRepo.findById(id));
-        return "useraccounts/register";
-    }
 
-    @PostMapping("/register")
-    public String submitNewUserAccount(@ModelAttribute UserAccount userAccount){
-        UserAccount saveUser = userAccountRepo.save(userAccount);
-        return "redirect:/users/register/"+saveUser.getId();
+    @PostMapping("/registersave")
+    public String postFormNewUserAccount(@ModelAttribute UserAccount userAccount){
+        userAccountService.addUserAccount(userAccount);
+        return "useraccounts/results";
     }
 
 }

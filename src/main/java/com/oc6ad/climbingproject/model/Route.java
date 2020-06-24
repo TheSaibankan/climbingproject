@@ -1,6 +1,7 @@
 package com.oc6ad.climbingproject.model;
 
 import javax.persistence.*;
+import java.util.Objects;
 
 @Entity(name = "route")
 public class Route {
@@ -71,14 +72,13 @@ public class Route {
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
-
         Route route = (Route) o;
-
-        return id != null ? id.equals(route.id) : route.id == null;
+        return Objects.equals(name, route.name) &&
+                Objects.equals(sector, route.sector);
     }
 
     @Override
     public int hashCode() {
-        return id != null ? id.hashCode() : 0;
+        return Objects.hash(name, sector);
     }
 }

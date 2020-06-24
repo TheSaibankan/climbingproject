@@ -1,6 +1,7 @@
 package com.oc6ad.climbingproject.model;
 
 import javax.persistence.*;
+import java.util.Objects;
 
 @Entity(name = "comment")
 public class Comment {
@@ -75,14 +76,14 @@ public class Comment {
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
-
         Comment comment = (Comment) o;
-
-        return id != null ? id.equals(comment.id) : comment.id == null;
+        return Objects.equals(content, comment.content) &&
+                Objects.equals(userAccount, comment.userAccount) &&
+                Objects.equals(climbingSpot, comment.climbingSpot);
     }
 
     @Override
     public int hashCode() {
-        return id != null ? id.hashCode() : 0;
+        return Objects.hash(content, userAccount, climbingSpot);
     }
 }
