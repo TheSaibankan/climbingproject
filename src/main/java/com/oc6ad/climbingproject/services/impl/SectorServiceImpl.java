@@ -10,14 +10,14 @@ import org.springframework.stereotype.Service;
 @Service
 public class SectorServiceImpl extends AbstractService<Sector, Long> implements SectorService {
 
-    private final SectorRepo repository;
+    private final SectorRepo sectorRepo;
 
-    public SectorServiceImpl(SectorRepo repository) {
-        this.repository = repository;
+    public SectorServiceImpl(SectorRepo sectorRepo) {
+        this.sectorRepo = sectorRepo;
     }
 
     @Override
     protected CrudRepository<Sector, Long> getRepository() {
-        return repository;
+        return sectorRepo;
     }
 }
