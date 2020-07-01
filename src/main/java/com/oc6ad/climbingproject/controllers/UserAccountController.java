@@ -17,7 +17,6 @@ public class UserAccountController {
         this.userAccountService = userAccountService;
     }
 
-
     @RequestMapping("/all")
     public String getUserAccounts(Model model) {
         model.addAttribute("useraccounts", userAccountService.findAll());
@@ -35,5 +34,17 @@ public class UserAccountController {
         userAccountService.addUserAccount(userAccount);
         return "useraccounts/results";
     }
+
+    @RequestMapping("/login")
+    public String getLogin(){
+        return "useraccounts/login";
+    }
+
+
+    @RequestMapping("/logoutsuccess")
+    public String getLogout(){
+        return "/";
+    }
+
 
 }

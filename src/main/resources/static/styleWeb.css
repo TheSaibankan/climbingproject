@@ -1,0 +1,91 @@
+body
+{
+	background-image: url(https://i.stack.imgur.com/jGlzr.png);
+	background-position: center;
+}
+header
+{
+	width: 50%;
+	border: 3px black solid;
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	margin: auto;
+}
+h1
+{
+	font-weight: bold;
+	text-align: center;
+	font-family: Helvetica;
+
+}
+h2
+{
+	font-style: italic;
+	text-align: center;
+	font-family: Helvetica;
+}
+nav
+{
+	display: flex;
+	flex-direction: row;
+	justify-content: space-around;
+	margin: auto;
+	border-bottom: 2px black dashed;
+}
+section
+{
+	width: 75%;
+	display: flex;
+	flex-direction: row;
+	flex-wrap: wrap;
+	justify-content: center;
+	margin: auto;
+}
+img
+{
+	width: 150px;
+	height: 150px;
+}
+figure
+{
+	border-bottom: 2px blue solid;
+}
+p
+{
+	text-shadow: 1px 1px 2px grey;
+	text-align: justify;
+}
+figcaption
+{
+	font-size: small;
+}
+td, th
+{
+	border: 1px solid black;
+}
+table
+{
+	border-collapse: collapse;
+}
+.inscrire
+{
+	width: 25%;
+	height: 40px;
+	font-size: xx-large;
+	display: flex;
+	justify-content: center;
+	margin: auto;
+	border: 1px red solid;
+}
+.formulaire
+{
+	display: flex;
+	flex-wrap: wrap;
+	flex-direction: column;
+	margin: auto;
+}
+.choix
+{
+	display: block;
+}

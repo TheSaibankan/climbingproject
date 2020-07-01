@@ -7,4 +7,5 @@ import org.springframework.stereotype.Repository;
 
 @Repository
 public interface UserAccountRepo extends CrudRepository<UserAccount, Long> {
+    UserAccount findByLogin(String login);
 }

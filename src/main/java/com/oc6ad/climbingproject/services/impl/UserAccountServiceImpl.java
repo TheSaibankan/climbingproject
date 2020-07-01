@@ -4,19 +4,20 @@ import com.oc6ad.climbingproject.model.UserAccount;
 import com.oc6ad.climbingproject.repositories.UserAccountRepo;
 import com.oc6ad.climbingproject.services.AbstractService;
 import com.oc6ad.climbingproject.services.UserAccountService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.stereotype.Service;
 
+import java.sql.SQLException;
+
 @Service
 public class UserAccountServiceImpl extends AbstractService<UserAccount, Long> implements UserAccountService {
-    private final Cryptpass cryptpass;
+    @Autowired
+    private Cryptpass cryptpass;
+    @Autowired
+    private UserAccountRepo userAccountRepo;
 
-    private final UserAccountRepo userAccountRepo;
 
-    public UserAccountServiceImpl(Cryptpass cryptpass, UserAccountRepo userAccountRepo) {
-        this.cryptpass = cryptpass;
-        this.userAccountRepo = userAccountRepo;
-    }
 
     @Override
     public void addUserAccount(UserAccount userAccount) {
@@ -24,6 +25,12 @@ public class UserAccountServiceImpl extends AbstractService<UserAccount, Long> i
         userAccount.setPassword(cryptpass.encrypt(userAccount.getPassword(), generatedSalt));
         userAccount.setSalt(generatedSalt);
         save(userAccount);
+    }
+
+    @Override
+    public UserAccount loadUserByLogin(String login) {
+        UserAccount userAccount = userAccountRepo.findByLogin(login);
+        return userAccount;
     }
 
     @Override
