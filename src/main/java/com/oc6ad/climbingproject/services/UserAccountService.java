@@ -6,4 +6,6 @@ public interface UserAccountService extends CrudService<UserAccount, Long> {
     void addUserAccount(UserAccount userAccount);
 
     UserAccount loadUserByLogin(String login);
+
+    UserAccount getCurrentUserAccount();
 }

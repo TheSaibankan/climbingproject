@@ -1,9 +1,11 @@
 package com.oc6ad.climbingproject.services.impl;
 
 import com.oc6ad.climbingproject.model.UserAccount;
+import org.springframework.context.annotation.Bean;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.stereotype.Service;
 
 import java.util.Collection;
 import java.util.Collections;

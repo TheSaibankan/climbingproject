@@ -30,7 +30,8 @@ public class BootstrapData implements CommandLineRunner {
         System.out.println("Nombre de topos : " + topoRepo.count());
         System.out.println("Nombre d'utilisateurs : " + userAccountRepo.count());
         System.out.println("Nombre de sites d'escalade : " + climbingSpotRepo.count());
-        //System.out.println("Nombre de sites créés par l'admin : " + user.getClimbingSpots().size());
+
+
 
     }
 }
