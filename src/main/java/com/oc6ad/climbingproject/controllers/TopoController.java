@@ -6,7 +6,6 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 @Controller
-@RequestMapping("/topos")
 public class TopoController {
 
     private final TopoRepo topoRepo;
@@ -15,7 +14,7 @@ public class TopoController {
         this.topoRepo = topoRepo;
     }
 
-    @RequestMapping("/all")
+    @RequestMapping("/alltopos")
     public  String getTopos(Model model) {
         model.addAttribute("topos", topoRepo.findAll());
 

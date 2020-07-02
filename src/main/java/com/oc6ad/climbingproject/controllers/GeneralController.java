@@ -1,26 +1,27 @@
 package com.oc6ad.climbingproject.controllers;
 
 import com.oc6ad.climbingproject.model.UserAccount;
-import com.oc6ad.climbingproject.repositories.UserAccountRepo;
+import com.oc6ad.climbingproject.repositories.ClimbingSpotRepo;
 import com.oc6ad.climbingproject.services.UserAccountService;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 @Controller
-@RequestMapping("/users")
-public class UserAccountController {
+public class GeneralController {
 
     private final UserAccountService userAccountService;
+    private final ClimbingSpotRepo climbingSpotRepo;
 
-    public UserAccountController(UserAccountService userAccountService) {
+    public GeneralController(UserAccountService userAccountService, ClimbingSpotRepo climbingSpotRepo) {
         this.userAccountService = userAccountService;
+        this.climbingSpotRepo = climbingSpotRepo;
     }
 
-    @RequestMapping("/all")
-    public String getUserAccounts(Model model) {
-        model.addAttribute("useraccounts", userAccountService.findAll());
-         return "useraccounts/list";
+    @GetMapping("/")
+    public String getHome(Model model){
+        model.addAttribute("climbingspots", climbingSpotRepo.findAll());
+        return "index";
     }
 
     @GetMapping("/register")
@@ -35,7 +36,7 @@ public class UserAccountController {
         return "useraccounts/results";
     }
 
-    @RequestMapping("/login")
+    @RequestMapping("/loginuser")
     public String getLogin(){
         return "useraccounts/login";
     }

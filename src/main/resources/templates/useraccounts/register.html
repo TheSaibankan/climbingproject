@@ -1,12 +1,12 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
-<link rel="stylesheet" href="../static/styleWeb.css" />
+<link rel="stylesheet" type="text/css" href="styleWeb.css">
 <head>
     <meta charset="UTF-8">
     <title>Inscription</title>
 </head>
 <body>
-<form th:action="@{/users/registersave}" th:object="${userAccount}" method="post">
+<form th:action="@{/registersave}" th:object="${userAccount}" method="post">
     Nom :
     <input type="text" th:field="*{lastName}">
     <br/>
@@ -31,6 +31,5 @@
 
 
 </form>
-
 </body>
 </html>

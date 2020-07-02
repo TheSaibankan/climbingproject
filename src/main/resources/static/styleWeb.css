@@ -1,7 +1,7 @@
-body
+body, .image
 {
-	background-image: url(https://i.stack.imgur.com/jGlzr.png);
-	background-position: center;
+	background-image: url("https://upload.wikimedia.org/wikipedia/commons/1/19/Overhanging_rock_climbing.jpg");
+	background-position: initial;
 }
 header
 {
@@ -16,14 +16,14 @@ h1
 {
 	font-weight: bold;
 	text-align: center;
-	font-family: Helvetica;
+	font-family: Helvetica, serif;
 
 }
 h2
 {
 	font-style: italic;
 	text-align: center;
-	font-family: Helvetica;
+	font-family: Helvetica, serif;
 }
 nav
 {
@@ -62,7 +62,7 @@ figcaption
 }
 td, th
 {
-	border: 1px solid black;
+	border: 1px solid #000000;
 }
 table
 {
@@ -83,7 +83,7 @@ table
 	display: flex;
 	flex-wrap: wrap;
 	flex-direction: column;
-	margin: auto;
+	margin: initial;
 }
 .choix
 {

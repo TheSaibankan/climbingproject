@@ -15,11 +15,6 @@ public class ClimbingSpotController {
         this.climbingSpotRepo = climbingSpotRepo;
     }
 
-    @RequestMapping("/all")
-    public String getClimbingSites(Model model){
-        model.addAttribute("climbingsites", climbingSpotRepo.findAll());
 
-        return "climbingsites/list";
-    }
 
 }

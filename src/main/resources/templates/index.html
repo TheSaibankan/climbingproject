@@ -1,20 +1,27 @@
 <!DOCTYPE html>
-<html lang="en">
-<link rel="stylesheet" href="../static/styleWeb.css" />
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<link rel="stylesheet" type="text/css" href="styleWeb.css">
 <head>
     <meta charset="UTF-8">
     <title>Page d'acceuil</title>
 </head>
 <body>
-    <header>
-        <h1>Bienvenue sur HappyClimbing !</h1>
-        <h2>Projet OpenClassrooms par Antoine Domergue</h2>
-    </header>
-    <nav>
-        <h3><a href="/">Page d'acceuil</a></h3>
-        <h3><a href="/users/register">S'inscrire</a></h3>
-        <h3><a href="/users/login">Mon espace perso</a></h3>
-    </nav>
+<header>
+    <h1>Bienvenue sur HappyClimbing !</h1>
+    <h2>Projet OpenClassrooms par Antoine Domergue</h2>
+</header>
+<nav>
+    <h3><a href="/">Page d'acceuil</a></h3>
+    <h3><a href="/register">S'inscrire</a></h3>
+    <h3><a href="/loginuser">Mon espace perso</a></h3>
+</nav>
+<h3>Voici la liste des sites disponibles</h3>
+<table>
+    <tr th:each="climbingspot : ${climbingspots}">
+        <td th:text="${climbingspot.name}"></td>
+        <td th:text="${climbingspot.location}"></td>
+    </tr>
+</table>
 
 </body>
 </html>

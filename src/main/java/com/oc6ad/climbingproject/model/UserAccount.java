@@ -1,6 +1,7 @@
 package com.oc6ad.climbingproject.model;
 
 import javax.persistence.*;
+import java.util.Collection;
 import java.util.HashSet;
 import java.util.Objects;
 import java.util.Set;
@@ -19,9 +20,17 @@ public class UserAccount {
     private String password;
     private String salt;
 
-
     @ManyToMany(mappedBy = "userAccounts")
     private Set<Topo> topos = new HashSet<>();
+
+    @ManyToMany
+    @JoinTable(
+            name = "user_role",
+            joinColumns = @JoinColumn(
+                    name = "id_user", referencedColumnName = "id"),
+            inverseJoinColumns = @JoinColumn(
+                    name = "id_role", referencedColumnName = "id"))
+    private Collection<Role> roles;
 
     @OneToMany
     private Set<ClimbingSpot> climbingSpots = new HashSet<>();
@@ -33,7 +42,7 @@ public class UserAccount {
 
     }
 
-    public UserAccount(Long id, String firstName, String lastName, String email, String login, String password, String salt) {
+    public UserAccount(Long id, String firstName, String lastName, String email, String login, String password, String salt, Collection<Role> roles) {
         this.id = id;
         this.firstName = firstName;
         this.lastName = lastName;
@@ -41,6 +50,15 @@ public class UserAccount {
         this.login = login;
         this.password = password;
         this.salt = salt;
+        this.roles = roles;
+    }
+
+    public Collection<Role> getRoles() {
+        return roles;
+    }
+
+    public void setRoles(Collection<Role> roles) {
+        this.roles = roles;
     }
 
     public String getSalt() {
