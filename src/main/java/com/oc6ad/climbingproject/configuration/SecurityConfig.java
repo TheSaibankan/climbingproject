@@ -31,19 +31,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         return provider;
     }
 
-/*    @Override
-    protected void configure(HttpSecurity http) throws Exception {
-        http
-                .authorizeRequests()
-                    .antMatchers("/","/login", "/register", "/registersave").permitAll()
-                .anyRequest().authenticated()
-                .and()
-                .formLogin()
-                .loginPage("/login").permitAll()
-                .and()
-                .logout().invalidateHttpSession(true)
-                .clearAuthentication(true)
-                .logoutRequestMatcher(new AntPathRequestMatcher("/logout"))
-                .logoutSuccessUrl("/").permitAll();
-    }*/
+//    @Override
+//    protected void configure(HttpSecurity http) throws Exception {
+//    }
 }

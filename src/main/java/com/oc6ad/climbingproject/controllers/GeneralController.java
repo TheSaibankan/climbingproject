@@ -2,8 +2,9 @@ package com.oc6ad.climbingproject.controllers;
 
 import com.oc6ad.climbingproject.model.UserAccount;
 import com.oc6ad.climbingproject.repositories.ClimbingSpotRepo;
+import com.oc6ad.climbingproject.services.TopoService;
 import com.oc6ad.climbingproject.services.UserAccountService;
-import com.oc6ad.climbingproject.services.impl.UserPrincipal;
+import org.hibernate.Session;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -13,10 +14,12 @@ public class GeneralController {
 
     private final UserAccountService userAccountService;
     private final ClimbingSpotRepo climbingSpotRepo;
+    private final TopoService topoService;
 
-    public GeneralController( UserAccountService userAccountService, ClimbingSpotRepo climbingSpotRepo) {
+    public GeneralController(UserAccountService userAccountService, ClimbingSpotRepo climbingSpotRepo, TopoService topoService) {
         this.userAccountService = userAccountService;
         this.climbingSpotRepo = climbingSpotRepo;
+        this.topoService = topoService;
     }
 
     @GetMapping("/")
@@ -51,6 +54,7 @@ public class GeneralController {
     @RequestMapping("/userinterface")
     public String getUserSpace(Model model) {
         model.addAttribute("currentUser", userAccountService.getCurrentUserAccount());
+        model.addAttribute("currentTopos", topoService.getToposByCurrentUser());
         return "useraccounts/testLogin";
     }
 

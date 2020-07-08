@@ -47,6 +47,11 @@ public class UserAccountServiceImpl extends AbstractService<UserAccount, Long> i
         return userAccountRepo.findByLogin(authentication.getName());
     }
 
+    @Override
+    public boolean isUserConnected() {
+        return SecurityContextHolder.getContext().getAuthentication().isAuthenticated();
+    }
+
 
     @Override
     protected CrudRepository<UserAccount, Long> getRepository() {

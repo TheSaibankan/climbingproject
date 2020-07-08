@@ -19,6 +19,7 @@ public class UserAccount {
     private String login;
     private String password;
     private String salt;
+    private boolean isAdmin;
 
     @ManyToMany(mappedBy = "userAccounts")
     private Set<Topo> topos = new HashSet<>();
@@ -42,7 +43,7 @@ public class UserAccount {
 
     }
 
-    public UserAccount(Long id, String firstName, String lastName, String email, String login, String password, String salt, Collection<Role> roles) {
+    public UserAccount(Long id, String firstName, String lastName, String email, String login, String password, String salt, Collection<Role> roles, boolean isAdmin) {
         this.id = id;
         this.firstName = firstName;
         this.lastName = lastName;
@@ -51,6 +52,7 @@ public class UserAccount {
         this.password = password;
         this.salt = salt;
         this.roles = roles;
+        this.isAdmin = isAdmin;
     }
 
     public Collection<Role> getRoles() {
@@ -140,6 +142,14 @@ public class UserAccount {
 
     public void setTopos(Set<Topo> topos) {
         this.topos = topos;
+    }
+
+    public boolean isAdmin() {
+        return isAdmin;
+    }
+
+    public void setAdmin(boolean admin) {
+        isAdmin = admin;
     }
 
     @Override

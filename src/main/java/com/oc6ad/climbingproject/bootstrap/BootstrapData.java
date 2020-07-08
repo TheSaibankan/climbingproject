@@ -10,6 +10,8 @@ import com.oc6ad.climbingproject.repositories.UserAccountRepo;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.stereotype.Component;
 
+import javax.sql.DataSource;
+
 @Component
 public class BootstrapData implements CommandLineRunner {
 

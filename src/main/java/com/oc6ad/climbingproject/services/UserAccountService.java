@@ -8,4 +8,6 @@ public interface UserAccountService extends CrudService<UserAccount, Long> {
     UserAccount loadUserByLogin(String login);
 
     UserAccount getCurrentUserAccount();
+
+    boolean isUserConnected();
 }

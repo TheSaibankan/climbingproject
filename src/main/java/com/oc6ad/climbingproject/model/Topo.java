@@ -17,6 +17,7 @@ public class Topo {
     private String location;
     private String releaseDate;
     private boolean isAvailable;
+    private Long ownerId;
 
     @ManyToMany
     @JoinTable(name = "user_topos", joinColumns = @JoinColumn(name = "id_topos"),
@@ -27,12 +28,21 @@ public class Topo {
 
     }
 
-    public Topo(String name, String description, String location, String releaseDate, boolean isAvailable) {
+    public Topo(String name, String description, String location, String releaseDate, boolean isAvailable, Long ownerId) {
         this.name = name;
         this.description = description;
         this.location = location;
         this.releaseDate = releaseDate;
         this.isAvailable = isAvailable;
+        this.ownerId = ownerId;
+    }
+
+    public Long getOwnerId() {
+        return ownerId;
+    }
+
+    public void setOwnerId(Long ownerId) {
+        this.ownerId = ownerId;
     }
 
     public Long getId() {

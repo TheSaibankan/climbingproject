@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<link rel="stylesheet" type="text/css" href="../../static/css/styleWeb.css">
+<head>
+    <meta charset="UTF-8">
+    <title>Votre nouveau topo</title>
+</head>
+<body>
+<form th:action="@{/registertoposave}" th:object="${topo}" method="post">
+
+    <label for="titre">Titre :</label>
+    <input type="text" id="titre" th:field="*{name}">
+    <br/>
+
+    <label for="description">Description :</label>
+    <textarea id="description" th:field="*{description}"/>
+    <br/>
+
+    <label for="location">Location :</label>
+    <input type="text" id="location" th:field="*{location}">
+    <br/>
+
+    <label for="disponibilité">Disponible ? :</label>
+    <input type="checkbox" id="disponibilité" th:field="*{available}">
+    <br/>
+
+    <input type="submit" value="S'inscrire">
+
+</form>
+</body>
+</html>
