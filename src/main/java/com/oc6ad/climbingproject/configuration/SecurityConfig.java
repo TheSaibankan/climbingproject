@@ -31,7 +31,18 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         return provider;
     }
 
-//    @Override
-//    protected void configure(HttpSecurity http) throws Exception {
-//    }
+    @Override
+    protected void configure(HttpSecurity http) throws Exception {
+        http
+                .csrf().disable()
+                .authorizeRequests()
+                .antMatchers("/userinterface").hasAnyAuthority()
+                .anyRequest().permitAll()
+                .and()
+                .formLogin().permitAll()
+                .loginPage("/login")
+                .defaultSuccessUrl("/", true);
+
+
+    }
 }
