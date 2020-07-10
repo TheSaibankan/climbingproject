@@ -26,6 +26,12 @@ public class TopoController {
         this.userAccountService = userAccountService;
     }
 
+    @GetMapping("/alltopos")
+    public String getAllTopos(Model model){
+        model.addAttribute("topos", topoRepo.findAll());
+        return "topos/list";
+    }
+
     @GetMapping("/registertopo")
     public String getFormNewTopo(Model model){
         model.addAttribute("topo", new Topo());
@@ -55,7 +61,7 @@ public class TopoController {
     }
 
     @GetMapping("/deletetopo/{id}")
-    public String deleteUser(@PathVariable("id") long id, Model model) {
+    public String deleteTopo(@PathVariable("id") long id, Model model) {
         topoRepo.delete(topoRepo.findById(id).get());
         model.addAttribute("currentUser", userAccountService.getCurrentUserAccount());
         model.addAttribute("currentTopos", topoService.getToposByCurrentUser());

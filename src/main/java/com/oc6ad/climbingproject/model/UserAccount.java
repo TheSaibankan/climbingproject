@@ -1,10 +1,7 @@
 package com.oc6ad.climbingproject.model;
 
 import javax.persistence.*;
-import java.util.Collection;
-import java.util.HashSet;
-import java.util.Objects;
-import java.util.Set;
+import java.util.*;
 
 @Entity(name = "user_account")
 public class UserAccount {
@@ -24,26 +21,24 @@ public class UserAccount {
     @ManyToMany(mappedBy = "userAccounts")
     private Set<Topo> topos = new HashSet<>();
 
-    @ManyToMany
-    @JoinTable(
-            name = "user_role",
-            joinColumns = @JoinColumn(
-                    name = "id_user", referencedColumnName = "id"),
-            inverseJoinColumns = @JoinColumn(
-                    name = "id_role", referencedColumnName = "id"))
-    private Collection<Role> roles;
-
     @OneToMany
     private Set<ClimbingSpot> climbingSpots = new HashSet<>();
 
     @OneToMany
     private Set<Comment> comments = new HashSet<>();
 
+    @ManyToMany(cascade=CascadeType.MERGE)
+    @JoinTable(
+            name="user_role",
+            joinColumns={@JoinColumn(name="id_user", referencedColumnName="id")},
+            inverseJoinColumns={@JoinColumn(name="id_role", referencedColumnName="id")})
+    private List<Role> roles;
+
     public UserAccount() {
 
     }
 
-    public UserAccount(Long id, String firstName, String lastName, String email, String login, String password, String salt, Collection<Role> roles, boolean isAdmin) {
+    public UserAccount(Long id, String firstName, String lastName, String email, String login, String password, String salt, boolean isAdmin, List<Role> roles) {
         this.id = id;
         this.firstName = firstName;
         this.lastName = lastName;
@@ -51,15 +46,7 @@ public class UserAccount {
         this.login = login;
         this.password = password;
         this.salt = salt;
-        this.roles = roles;
         this.isAdmin = isAdmin;
-    }
-
-    public Collection<Role> getRoles() {
-        return roles;
-    }
-
-    public void setRoles(Collection<Role> roles) {
         this.roles = roles;
     }
 
@@ -69,6 +56,14 @@ public class UserAccount {
 
     public void setSalt(String salt) {
         this.salt = salt;
+    }
+
+    public List<Role> getRoles() {
+        return roles;
+    }
+
+    public void setRoles(List<Role> roles) {
+        this.roles = roles;
     }
 
     public Set<Comment> getComments() {
