@@ -18,7 +18,7 @@ public class UserAccount {
     private String salt;
     private boolean isAdmin;
 
-    @ManyToMany(mappedBy = "userAccounts")
+    @OneToMany
     private Set<Topo> topos = new HashSet<>();
 
     @OneToMany

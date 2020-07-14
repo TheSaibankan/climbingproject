@@ -1,5 +1,7 @@
 package com.oc6ad.climbingproject.model;
 
+import org.springframework.lang.Nullable;
+
 import javax.persistence.*;
 import java.util.HashSet;
 import java.util.Objects;
@@ -19,22 +21,40 @@ public class Topo {
     private boolean isAvailable;
     private Long ownerId;
 
-    @ManyToMany
-    @JoinTable(name = "user_topos", joinColumns = @JoinColumn(name = "id_topos"),
-            inverseJoinColumns = @JoinColumn(name = "id_user"))
-    private Set<UserAccount> userAccounts = new HashSet<>();
+    @Nullable
+    private Long receiverId;
+
+    private boolean hasBeenRequested;
 
     public Topo() {
 
     }
 
-    public Topo(String name, String description, String location, String releaseDate, boolean isAvailable, Long ownerId) {
+    public Topo(String name, String description, String location, String releaseDate, boolean isAvailable, Long ownerId, Long receiverId, boolean hasBeenRequested) {
         this.name = name;
         this.description = description;
         this.location = location;
         this.releaseDate = releaseDate;
         this.isAvailable = isAvailable;
         this.ownerId = ownerId;
+        this.receiverId = receiverId;
+        this.hasBeenRequested = hasBeenRequested;
+    }
+
+    public boolean isHasBeenRequested() {
+        return hasBeenRequested;
+    }
+
+    public void setHasBeenRequested(boolean hasBeenRequested) {
+        this.hasBeenRequested = hasBeenRequested;
+    }
+
+    public Long getReceiverId() {
+        return receiverId;
+    }
+
+    public void setReceiverId(Long receiverId) {
+        this.receiverId = receiverId;
     }
 
     public Long getOwnerId() {
@@ -93,14 +113,6 @@ public class Topo {
         isAvailable = available;
     }
 
-    public Set<UserAccount> getUserAccounts() {
-        return userAccounts;
-    }
-
-    public void setUserAccounts(Set<UserAccount> userAccounts) {
-        this.userAccounts = userAccounts;
-    }
-
     @Override
     public String toString() {
         return "Topo{" +
@@ -108,8 +120,10 @@ public class Topo {
                 ", name='" + name + '\'' +
                 ", description='" + description + '\'' +
                 ", location='" + location + '\'' +
-                ", releaseDate=" + releaseDate +
+                ", releaseDate='" + releaseDate + '\'' +
                 ", isAvailable=" + isAvailable +
+                ", ownerId=" + ownerId +
+                ", receiverId=" + receiverId +
                 '}';
     }
 

@@ -14,11 +14,17 @@
         <th>Disponible ?</th>
     </tr>
     <tr th:each="topo : ${topos}">
-        <td th:text="${topo.name}">1</td>
-        <td th:text="${topo.description}">adomergue@hotmail.fr</td>
+        <td th:text="${topo.name}"></td>
+        <td th:text="${topo.description}"></td>
         <td>
             <span th:if="${topo.available}">Oui !</span>
             <span th:if="${not topo.available}">Non...</span>
+        </td>
+        <td>
+            <div th:switch="${isConnected}">
+                <p th:case="true"><a th:href="@{/asktopo/{id}(id=${topo.id})}">Demander le topo</a></p>
+                <span th:case="false"></span>
+            </div>
         </td>
     </tr>
 </table>

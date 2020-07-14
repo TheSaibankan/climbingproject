@@ -12,9 +12,11 @@
 </header>
 <nav>
     <h3><a href="/">Page d'acceuil</a></h3>
-    <h3><a href="/userinterface">Mon espace perso</a></h3>
-    <h3><a href="/register">S'inscrire</a></h3>
     <h3><a href="/alltopos">Liste des topos</a></h3>
+    <div>
+        <h3><a href="/register">S'inscrire</a></h3>
+        <h3><a href="/userinterface">Mon espace perso</a></h3>
+    </div>
 </nav>
 <h3>Voici la liste des sites disponibles</h3>
 <table>
@@ -23,6 +25,5 @@
         <td th:text="${climbingspot.location}"></td>
     </tr>
 </table>
-
 </body>
 </html>

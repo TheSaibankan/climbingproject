@@ -23,6 +23,14 @@
                 <p th:case="false">Indisponible</p>
             </div>
         </td>
+        <td>
+            <div th:if="${currentTopo.hasBeenRequested}">
+                <p >Ce topo a été demandé !
+                    <a th:href="@{/acceptrequest/{id}(id=${currentTopo.id})}">Accepter</a>
+                    <a th:href="@{/declinerequest/{id}(id=${currentTopo.id})}">Décliner</a>
+                </p>
+            </div>
+        </td>
         <td><a th:href="@{/edittopo/{id}(id=${currentTopo.id})}">Modifier</a></td>
         <td><a th:href="@{/deletetopo/{id}(id=${currentTopo.id})}">Supprimer</a></td>
     </tr>

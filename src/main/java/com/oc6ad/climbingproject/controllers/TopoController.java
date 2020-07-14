@@ -1,6 +1,7 @@
 package com.oc6ad.climbingproject.controllers;
 
 import com.oc6ad.climbingproject.model.Topo;
+import com.oc6ad.climbingproject.model.UserAccount;
 import com.oc6ad.climbingproject.repositories.TopoRepo;
 import com.oc6ad.climbingproject.services.TopoService;
 import com.oc6ad.climbingproject.services.UserAccountService;
@@ -29,6 +30,7 @@ public class TopoController {
     @GetMapping("/alltopos")
     public String getAllTopos(Model model){
         model.addAttribute("topos", topoRepo.findAll());
+        model.addAttribute("isConnected", userAccountService.isUserConnected());
         return "topos/list";
     }
 
@@ -63,6 +65,29 @@ public class TopoController {
     @GetMapping("/deletetopo/{id}")
     public String deleteTopo(@PathVariable("id") long id, Model model) {
         topoRepo.delete(topoRepo.findById(id).get());
+        model.addAttribute("currentUser", userAccountService.getCurrentUserAccount());
+        model.addAttribute("currentTopos", topoService.getToposByCurrentUser());
+        return "useraccounts/testLogin";
+    }
+
+    @GetMapping("/asktopo/{id}")
+    public String askForTopo(@PathVariable("id") long id, Model model) {
+        topoService.askForTopo(id);
+        model.addAttribute("topos", topoRepo.findAll());
+        return "topos/list";
+    }
+
+    @GetMapping("acceptrequest/{id}")
+    public String acceptTopo(@PathVariable("id") long id, Model model) {
+        topoService.acceptRequestTopo(id);
+        model.addAttribute("currentUser", userAccountService.getCurrentUserAccount());
+        model.addAttribute("currentTopos", topoService.getToposByCurrentUser());
+        return "useraccounts/testLogin";
+    }
+
+    @GetMapping("declinerequest/{id}")
+    public String declineTopo(@PathVariable("id") long id, Model model) {
+        topoService.declineRequestTopo(id);
         model.addAttribute("currentUser", userAccountService.getCurrentUserAccount());
         model.addAttribute("currentTopos", topoService.getToposByCurrentUser());
         return "useraccounts/testLogin";
