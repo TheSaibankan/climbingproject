@@ -1,11 +1,23 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org">
-<link rel="stylesheet" href="../../static/css/styleWeb.css" />
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.springframework.org/security/tags">
+<link rel="stylesheet" href="../../static/css/styleWeb.css"/>
 <head>
     <meta charset="UTF-8">
     <title>Test de lecture de liste</title>
 </head>
 <body>
+<header>
+    <h1>Bienvenue sur HappyClimbing !</h1>
+    <h2>Projet OpenClassrooms par Antoine Domergue</h2>
+</header>
+<nav>
+    <h3><a href="/">Page d'acceuil</a></h3>
+    <h3><a href="/alltopos">Liste des topos</a></h3>
+    <div>
+        <h3><a href="/register">S'inscrire</a></h3>
+        <h3><a href="/userinterface">Mon espace perso</a></h3>
+    </div>
+</nav>
 <h1>Liste des topos</h1>
 <table>
     <tr>
@@ -20,12 +32,12 @@
             <span th:if="${topo.available}">Oui !</span>
             <span th:if="${not topo.available}">Non...</span>
         </td>
-        <td>
-            <div th:switch="${isConnected}">
-                <p th:case="true"><a th:href="@{/asktopo/{id}(id=${topo.id})}">Demander le topo</a></p>
-                <span th:case="false"></span>
-            </div>
-        </td>
+        <div th:if="${isConnected == true}">
+            <td>
+                <p><a th:href="@{/asktopo/{id}(id=${topo.id})}">Demander le topo</a></p>
+                <p th:if="${topo.hasBeenRequested == true}">Ce topo a déjà été demandé.</p>
+            </td>
+        </div>
     </tr>
 </table>
 </body>

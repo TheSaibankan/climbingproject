@@ -11,4 +11,5 @@ import java.util.Set;
 @Repository
 public interface TopoRepo extends CrudRepository<Topo, Long> {
     Set<Topo> findByOwnerId(Long idCurrentUser);
+    Set<Topo> findAllByIsAvailableTrue();
 }

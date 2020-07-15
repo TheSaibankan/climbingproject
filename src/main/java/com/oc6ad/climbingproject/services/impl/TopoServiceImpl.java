@@ -64,11 +64,25 @@ public class TopoServiceImpl extends AbstractService<Topo, Long> implements Topo
     public void acceptRequestTopo(Long id) {
        Topo topo = topoRepo.findById(id).get();
        topo.setAvailable(false);
+       topo.setHasBeenRequested(false);
+       topo.setHasBeenAccepted(true);
        topoRepo.save(topo);
     }
 
     @Override
     public UserAccount getUserRequesting(Long id) {
         return userAccountRepo.findById(topoRepo.findById(id).get().getReceiverId()).get();
+    }
+
+    @Override
+    public boolean canBeRequested(Long id) {
+        Topo topo = topoRepo.findById(id).get();
+        UserAccount currentUser = userAccountService.getCurrentUserAccount();
+        if (topo.getReceiverId() != currentUser.getId() && topo.getOwnerId() != currentUser.getId()){
+            return true;
+        }
+        else {
+            return false;
+        }
     }
 }

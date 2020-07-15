@@ -17,4 +17,6 @@ public interface TopoService extends CrudService<Topo, Long>{
     void acceptRequestTopo(Long id);
 
     UserAccount getUserRequesting(Long id);
+
+    boolean canBeRequested(Long id);
 }

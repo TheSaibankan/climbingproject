@@ -5,9 +5,13 @@ import com.oc6ad.climbingproject.repositories.UserAccountRepo;
 import com.oc6ad.climbingproject.services.AbstractService;
 import com.oc6ad.climbingproject.services.UserAccountService;
 import org.springframework.data.repository.CrudRepository;
+import org.springframework.security.authentication.AnonymousAuthenticationToken;
 import org.springframework.security.core.Authentication;
+import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
+
+import java.util.Collection;
 
 @Service
 public class UserAccountServiceImpl extends AbstractService<UserAccount, Long> implements UserAccountService {
@@ -42,7 +46,8 @@ public class UserAccountServiceImpl extends AbstractService<UserAccount, Long> i
 
     @Override
     public boolean isUserConnected() {
-        return SecurityContextHolder.getContext().getAuthentication().isAuthenticated();
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        return authentication != null && !(authentication instanceof AnonymousAuthenticationToken) && authentication.isAuthenticated();
     }
 
 

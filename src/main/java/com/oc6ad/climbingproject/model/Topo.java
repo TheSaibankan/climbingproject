@@ -1,5 +1,6 @@
 package com.oc6ad.climbingproject.model;
 
+import net.bytebuddy.implementation.bind.annotation.Default;
 import org.springframework.lang.Nullable;
 
 import javax.persistence.*;
@@ -25,12 +26,13 @@ public class Topo {
     private Long receiverId;
 
     private boolean hasBeenRequested;
+    private boolean hasBeenAccepted;
 
     public Topo() {
 
     }
 
-    public Topo(String name, String description, String location, String releaseDate, boolean isAvailable, Long ownerId, Long receiverId, boolean hasBeenRequested) {
+    public Topo(String name, String description, String location, String releaseDate, boolean isAvailable, Long ownerId, Long receiverId, boolean hasBeenRequested, boolean hasBeenAccepted) {
         this.name = name;
         this.description = description;
         this.location = location;
@@ -39,6 +41,15 @@ public class Topo {
         this.ownerId = ownerId;
         this.receiverId = receiverId;
         this.hasBeenRequested = hasBeenRequested;
+        this.hasBeenAccepted = hasBeenAccepted;
+    }
+
+    public boolean isHasBeenAccepted() {
+        return hasBeenAccepted;
+    }
+
+    public void setHasBeenAccepted(boolean hasBeenAccepted) {
+        this.hasBeenAccepted = hasBeenAccepted;
     }
 
     public boolean isHasBeenRequested() {

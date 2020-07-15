@@ -6,6 +6,18 @@
     <title>Modifier le topo</title>
 </head>
 <body>
+<header>
+    <h1>Bienvenue sur HappyClimbing !</h1>
+    <h2>Projet OpenClassrooms par Antoine Domergue</h2>
+</header>
+<nav>
+    <h3><a href="/">Page d'acceuil</a></h3>
+    <h3><a href="/alltopos">Liste des topos</a></h3>
+    <div>
+        <h3><a href="/register">S'inscrire</a></h3>
+        <h3><a href="/userinterface">Mon espace perso</a></h3>
+    </div>
+</nav>
 <form th:action="@{/updatetopo/{id}(id=${currentTopo.id})}" th:object="${currentTopo}" method="post">
 
     <label for="titre">Titre :</label>

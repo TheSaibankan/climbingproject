@@ -29,8 +29,9 @@ public class TopoController {
 
     @GetMapping("/alltopos")
     public String getAllTopos(Model model){
-        model.addAttribute("topos", topoRepo.findAll());
+        model.addAttribute("topos", topoRepo.findAllByIsAvailableTrue());
         model.addAttribute("isConnected", userAccountService.isUserConnected());
+        model.addAttribute("currentUser", userAccountService.getCurrentUserAccount());
         return "topos/list";
     }
 
@@ -71,10 +72,9 @@ public class TopoController {
     }
 
     @GetMapping("/asktopo/{id}")
-    public String askForTopo(@PathVariable("id") long id, Model model) {
-        topoService.askForTopo(id);
-        model.addAttribute("topos", topoRepo.findAll());
-        return "topos/list";
+    public String askForTopo(@PathVariable("id") long id) {
+        if (topoService.canBeRequested(id)){topoService.askForTopo(id);}
+        return "topos/successRequestTopo";
     }
 
     @GetMapping("acceptrequest/{id}")
@@ -82,6 +82,7 @@ public class TopoController {
         topoService.acceptRequestTopo(id);
         model.addAttribute("currentUser", userAccountService.getCurrentUserAccount());
         model.addAttribute("currentTopos", topoService.getToposByCurrentUser());
+        model.addAttribute("currentRequester", topoService.getUserRequesting(id));
         return "useraccounts/testLogin";
     }
 
