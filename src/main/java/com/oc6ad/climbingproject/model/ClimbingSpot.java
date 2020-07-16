@@ -16,6 +16,7 @@ public class ClimbingSpot {
     private String location;
     private boolean isOfficial;
     private String cotation;
+    private String description;
 
     @ManyToOne
     private UserAccount userAccount;
@@ -26,13 +27,22 @@ public class ClimbingSpot {
     public ClimbingSpot() {
     }
 
-    public ClimbingSpot(Long id, String name, String location, boolean isOfficial, String cotation, UserAccount userAccount) {
+    public ClimbingSpot(Long id, String name, String location, boolean isOfficial, String cotation, UserAccount userAccount, String description) {
         this.id = id;
         this.name = name;
         this.location = location;
         this.isOfficial = isOfficial;
         this.cotation = cotation;
         this.userAccount = userAccount;
+        this.description = description;
+    }
+
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
     }
 
     public UserAccount getUserAccount() {

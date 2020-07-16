@@ -19,9 +19,14 @@
     </div>
 </nav>
 <h3>Voici la liste des sites disponibles</h3>
+
+<div th:if="${isConnected == true}">
+    <a href="/registerspot">Ajouter un spot d'escalade</a>
+</div>
+
 <table>
     <tr th:each="climbingspot : ${climbingspots}">
-        <td th:text="${climbingspot.name}"></td>
+        <td><a th:href="@{/climbingspot/{id}(id=${climbingspot.id})}" th:text="${climbingspot.name}"></a></td>
         <td th:text="${climbingspot.location}"></td>
     </tr>
 </table>

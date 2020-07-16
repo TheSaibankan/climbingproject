@@ -27,18 +27,11 @@ public class UserAccount {
     @OneToMany
     private Set<Comment> comments = new HashSet<>();
 
-    @ManyToMany(cascade=CascadeType.MERGE)
-    @JoinTable(
-            name="user_role",
-            joinColumns={@JoinColumn(name="id_user", referencedColumnName="id")},
-            inverseJoinColumns={@JoinColumn(name="id_role", referencedColumnName="id")})
-    private List<Role> roles;
-
     public UserAccount() {
 
     }
 
-    public UserAccount(Long id, String firstName, String lastName, String email, String login, String password, String salt, boolean isAdmin, List<Role> roles) {
+    public UserAccount(Long id, String firstName, String lastName, String email, String login, String password, String salt, boolean isAdmin) {
         this.id = id;
         this.firstName = firstName;
         this.lastName = lastName;
@@ -47,7 +40,6 @@ public class UserAccount {
         this.password = password;
         this.salt = salt;
         this.isAdmin = isAdmin;
-        this.roles = roles;
     }
 
     public String getSalt() {
@@ -56,14 +48,6 @@ public class UserAccount {
 
     public void setSalt(String salt) {
         this.salt = salt;
-    }
-
-    public List<Role> getRoles() {
-        return roles;
-    }
-
-    public void setRoles(List<Role> roles) {
-        this.roles = roles;
     }
 
     public Set<Comment> getComments() {
@@ -141,6 +125,10 @@ public class UserAccount {
 
     public boolean isAdmin() {
         return isAdmin;
+    }
+
+    public String getRole() {
+        return isAdmin ? "ADMIN": "USER";
     }
 
     public void setAdmin(boolean admin) {

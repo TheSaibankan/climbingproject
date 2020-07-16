@@ -1,0 +1,15 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title th:text="${currentSpot.name}"></title>
+</head>
+<body>
+<h3 th:text="${currentSpot.name}"></h3>
+<h4 th:text="${currentSpot.location}"></h4>
+<h5 th:if="${currentSpot.official == true}"><strong>Vous consultez un spot officiel !</strong></h5>
+<p>Description :</p>
+<p th:text="${currentSpot.description}"></p>
+<p>Cotation : <span th:text="${currentSpot.cotation}"/> Crée par : <span th:text="${currentSpot.userAccount.login}"/></p>
+</body>
+</html>

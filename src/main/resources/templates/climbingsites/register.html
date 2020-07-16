@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Votre nouveau spot</title>
+</head>
+<body>
+<form th:action="@{/registerspotsave}" th:object="${spot}" method="post">
+
+    <label for="titre">Nom :</label>
+    <input type="text" id="titre" th:field="*{name}">
+    <br/>
+
+    <label for="description">Description :</label>
+    <textarea id="description" th:field="*{description}"/>
+    <br/>
+
+    <label for="location">Location :</label>
+    <input type="text" id="location" th:field="*{location}">
+    <br/>
+
+    <label for="cotation">Cotation :</label>
+    <input type="text" id="cotation" th:field="*{cotation}">
+    <br/>
+
+    <div th:if="${#authorization.expression('hasRole(''ADMIN'')')}">
+        <label for="official">Cotation :</label>
+        <input type="checkbox" id="official" th:field="*{official}">
+        <br/>
+    </div>
+
+    <input type="submit" value="Enregistrer">
+
+</body>
+</html>

@@ -4,14 +4,25 @@ import com.oc6ad.climbingproject.model.ClimbingSpot;
 import com.oc6ad.climbingproject.repositories.ClimbingSpotRepo;
 import com.oc6ad.climbingproject.services.AbstractService;
 import com.oc6ad.climbingproject.services.ClimbingSpotService;
+import com.oc6ad.climbingproject.services.UserAccountService;
 import org.springframework.data.repository.CrudRepository;
+import org.springframework.stereotype.Service;
 
+@Service
 public class ClimbingSpotServiceImpl extends AbstractService<ClimbingSpot, Long> implements ClimbingSpotService {
 
     private final ClimbingSpotRepo climbingSpotRepo;
+    private final UserAccountService userAccountService;
 
-    public ClimbingSpotServiceImpl(ClimbingSpotRepo climbingSpotRepo) {
+    public ClimbingSpotServiceImpl(ClimbingSpotRepo climbingSpotRepo, UserAccountService userAccountService) {
         this.climbingSpotRepo = climbingSpotRepo;
+        this.userAccountService = userAccountService;
+    }
+
+    @Override
+    public void addNewSpot(ClimbingSpot climbingSpot){
+        climbingSpot.setUserAccount(userAccountService.getCurrentUserAccount());
+        save(climbingSpot);
     }
 
     @Override
