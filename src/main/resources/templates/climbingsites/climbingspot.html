@@ -11,5 +11,17 @@
 <p>Description :</p>
 <p th:text="${currentSpot.description}"></p>
 <p>Cotation : <span th:text="${currentSpot.cotation}"/> Crée par : <span th:text="${currentSpot.userAccount.login}"/></p>
+<h2>Espace commentaire</h2>
+<tr th:each="comment : ${comments}">
+    <td><h4 th:text="${comment.userAccount.login}"></h4></td>
+    <td><p th:text="${comment.content}"></p></td>
+</tr>
+<div th:if="${isConnected == true}">
+    <form th:action="@{/registernewcomment/{id}(id=${currentSpot.id})}" th:object="${comment}" method="post">
+    <label for="comment">Votre commentaire</label>
+    <textarea id="comment" th:field="*{content}"></textarea>
+    <input type="submit" value="Envoyer">
+    </form>
+</div>
 </body>
 </html>

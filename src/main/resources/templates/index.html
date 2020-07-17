@@ -13,8 +13,11 @@
 <nav>
     <h3><a href="/">Page d'acceuil</a></h3>
     <h3><a href="/alltopos">Liste des topos</a></h3>
-    <div>
+    <div th:if="${isConnected == false}">
         <h3><a href="/register">S'inscrire</a></h3>
+        <h3><a href="/login">Se connecter</a></h3>
+    </div>
+    <div th:if="${isConnected == true}">
         <h3><a href="/userinterface">Mon espace perso</a></h3>
     </div>
 </nav>

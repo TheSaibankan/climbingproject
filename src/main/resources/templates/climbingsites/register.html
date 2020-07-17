@@ -6,7 +6,6 @@
 </head>
 <body>
 <form th:action="@{/registerspotsave}" th:object="${spot}" method="post">
-
     <label for="titre">Nom :</label>
     <input type="text" id="titre" th:field="*{name}">
     <br/>
@@ -23,13 +22,15 @@
     <input type="text" id="cotation" th:field="*{cotation}">
     <br/>
 
-    <div th:if="${#authorization.expression('hasRole(''ADMIN'')')}">
-        <label for="official">Cotation :</label>
+    <div th:if="${currentUser.admin == true}">
+        <label for="official">Officiel ?</label>
         <input type="checkbox" id="official" th:field="*{official}">
         <br/>
     </div>
 
-    <input type="submit" value="Enregistrer">
+    <input type="submit" value="Enregistrer"> <form/>
+     
+</form>
 
 </body>
 </html>
