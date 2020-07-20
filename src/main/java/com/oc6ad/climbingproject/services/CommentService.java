@@ -7,4 +7,6 @@ import java.util.Set;
 public interface CommentService extends CrudService<Comment, Long> {
 
     void addNewComment(Long idClimbingSpot, Comment comment);
+
+    boolean isCommentDeletable(Long idComment);
 }

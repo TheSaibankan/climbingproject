@@ -1,6 +1,7 @@
 package com.oc6ad.climbingproject.services.impl;
 
 import com.oc6ad.climbingproject.model.Comment;
+import com.oc6ad.climbingproject.model.UserAccount;
 import com.oc6ad.climbingproject.repositories.ClimbingSpotRepo;
 import com.oc6ad.climbingproject.repositories.CommentRepo;
 import com.oc6ad.climbingproject.services.AbstractService;
@@ -27,6 +28,16 @@ public class CommentServiceImpl extends AbstractService<Comment, Long> implement
         comment.setUserAccount(userAccountService.getCurrentUserAccount());
         comment.setClimbingSpot(climbingSpotRepo.findById(idClimbingSpot).get());
         save(comment);
+    }
+
+    @Override
+    public boolean isCommentDeletable(Long idComment){
+        if (userAccountService.isUserConnected()){
+            UserAccount currentUser = userAccountService.getCurrentUserAccount();
+            return currentUser.isAdmin() || commentRepo.findById(idComment).get().getUserAccount() == currentUser;
+        } else {
+            return false;
+        }
     }
 
     @Override

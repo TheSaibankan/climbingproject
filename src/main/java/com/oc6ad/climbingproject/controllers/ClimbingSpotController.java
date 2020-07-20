@@ -34,6 +34,7 @@ public class ClimbingSpotController {
         model.addAttribute("comments", commentRepo.findAllByClimbingSpot_Id(id));
         model.addAttribute("isConnected", userAccountService.isUserConnected());
         model.addAttribute("comment", new Comment());
+        model.addAttribute("currentUser", userAccountService.getCurrentUserAccount());
         return "climbingsites/climbingspot";
     }
 
@@ -58,6 +59,13 @@ public class ClimbingSpotController {
         model.addAttribute("isConnected", userAccountService.isUserConnected());
         model.addAttribute("comment", new Comment());
         return "climbingsites/climbingspot";
+    }
+
+    @GetMapping("deletecomment/{idComment}")
+    public String deleteComment(@PathVariable("idComment") Long idComment, Model model){
+        model.addAttribute("idSpot", commentRepo.findById(idComment).get().getClimbingSpot().getId());
+        commentRepo.deleteById(idComment);
+        return "climbingsites/commentDeleted";
     }
 
 

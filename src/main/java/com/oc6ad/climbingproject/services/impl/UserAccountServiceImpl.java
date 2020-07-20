@@ -50,7 +50,6 @@ public class UserAccountServiceImpl extends AbstractService<UserAccount, Long> i
         return authentication != null && !(authentication instanceof AnonymousAuthenticationToken) && authentication.isAuthenticated();
     }
 
-
     @Override
     protected CrudRepository<UserAccount, Long> getRepository() {
         return this.userAccountRepo;

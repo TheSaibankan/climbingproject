@@ -15,6 +15,14 @@
 <tr th:each="comment : ${comments}">
     <td><h4 th:text="${comment.userAccount.login}"></h4></td>
     <td><p th:text="${comment.content}"></p></td>
+
+    <div th:if="${isConnected == true}">
+        <td th:if="${currentUser == comment.userAccount || currentUser.admin == true}">
+            <a th:href="@{/deletecomment/{idComment}(idComment=${comment.id})}">Supprimer</a>
+        </td>
+
+    </div>
+
 </tr>
 <div th:if="${isConnected == true}">
     <form th:action="@{/registernewcomment/{id}(id=${currentSpot.id})}" th:object="${comment}" method="post">
