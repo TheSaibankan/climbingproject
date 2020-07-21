@@ -44,7 +44,9 @@
         </td>
         <td><a th:href="@{/edittopo/{id}(id=${currentTopo.id})}">Modifier</a></td>
         <td><a th:href="@{/deletetopo/{id}(id=${currentTopo.id})}">Supprimer</a></td>
-        <td th:if="${currentTopo.hasBeenAccepted}"><p>E-mail de l'utilisateur :</p><p th:text="${currentRequester.email}"/></td>
+        <td th:if="${currentTopo.hasBeenAccepted}">
+            <p>E-mail de l'utilisateur :</p><p th:text="${currentTopo.receiver.email}"/>
+        </td>
     </tr>
 </table>
 

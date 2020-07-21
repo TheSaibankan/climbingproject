@@ -26,6 +26,7 @@ public class GeneralController {
     public String getHome(Model model){
         model.addAttribute("climbingspots", climbingSpotRepo.findAll());
         model.addAttribute("isConnected", userAccountService.isUserConnected());
+        model.addAttribute("currentUser", userAccountService.getCurrentUserAccount());
         return "index";
     }
 

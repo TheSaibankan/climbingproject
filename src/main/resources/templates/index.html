@@ -31,6 +31,11 @@
     <tr th:each="climbingspot : ${climbingspots}">
         <td><a th:href="@{/climbingspot/{id}(id=${climbingspot.id})}" th:text="${climbingspot.name}"></a></td>
         <td th:text="${climbingspot.location}"></td>
+        <div th:if="${isConnected == true}">
+            <td th:if="${currentUser.admin == true || currentUser == climbingspot.userAccount}">
+                <a th:href="@{/editspot/{id}(id=${climbingspot.id})}">Modifier</a>
+            </td>
+        </div>
     </tr>
 </table>
 </body>

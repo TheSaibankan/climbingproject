@@ -27,8 +27,8 @@ public class TopoServiceImpl extends AbstractService<Topo, Long> implements Topo
 
     @Override
     public void addNewTopo(Topo topo){
-        topo.setOwnerId(userAccountService.getCurrentUserAccount().getId());
-        topo.setReceiverId(Long.valueOf(0));
+        topo.setOwner(userAccountService.getCurrentUserAccount());
+        topo.setReceiver(null);
         save(topo);
     }
 
@@ -47,7 +47,7 @@ public class TopoServiceImpl extends AbstractService<Topo, Long> implements Topo
     public void askForTopo(Long id) {
         Topo topo = topoRepo.findById(id).get();
         UserAccount currentUser = userAccountService.getCurrentUserAccount();
-        topo.setReceiverId(currentUser.getId());
+        topo.setReceiver(currentUser);
         topo.setHasBeenRequested(true);
         topoRepo.save(topo);
     }
@@ -55,7 +55,7 @@ public class TopoServiceImpl extends AbstractService<Topo, Long> implements Topo
     @Override
     public void declineRequestTopo(Long id) {
         Topo topo = topoRepo.findById(id).get();
-        topo.setReceiverId(Long.valueOf(0));
+        topo.setReceiver(null);
         topo.setHasBeenRequested(false);
         topoRepo.save(topo);
     }
@@ -71,14 +71,14 @@ public class TopoServiceImpl extends AbstractService<Topo, Long> implements Topo
 
     @Override
     public UserAccount getUserRequesting(Long id) {
-        return userAccountRepo.findById(topoRepo.findById(id).get().getReceiverId()).get();
+        return topoRepo.findById(id).get().getReceiver();
     }
 
     @Override
     public boolean canBeRequested(Long id) {
         Topo topo = topoRepo.findById(id).get();
         UserAccount currentUser = userAccountService.getCurrentUserAccount();
-        if (topo.getReceiverId() != currentUser.getId() && topo.getOwnerId() != currentUser.getId()){
+        if (topo.getReceiver() != currentUser && topo.getOwner() != currentUser){
             return true;
         }
         else {

@@ -2,6 +2,7 @@ package com.oc6ad.climbingproject.model;
 
 import net.bytebuddy.implementation.bind.annotation.Default;
 import org.springframework.lang.Nullable;
+import org.springframework.security.core.userdetails.User;
 
 import javax.persistence.*;
 import java.util.HashSet;
@@ -20,10 +21,13 @@ public class Topo {
     private String location;
     private String releaseDate;
     private boolean isAvailable;
-    private Long ownerId;
 
+    @ManyToOne
+    private UserAccount owner;
+
+    @OneToOne
     @Nullable
-    private Long receiverId;
+    private UserAccount receiver;
 
     private boolean hasBeenRequested;
     private boolean hasBeenAccepted;
@@ -32,14 +36,14 @@ public class Topo {
 
     }
 
-    public Topo(String name, String description, String location, String releaseDate, boolean isAvailable, Long ownerId, Long receiverId, boolean hasBeenRequested, boolean hasBeenAccepted) {
+    public Topo(String name, String description, String location, String releaseDate, boolean isAvailable, UserAccount ownerId, UserAccount receiverId, boolean hasBeenRequested, boolean hasBeenAccepted) {
         this.name = name;
         this.description = description;
         this.location = location;
         this.releaseDate = releaseDate;
         this.isAvailable = isAvailable;
-        this.ownerId = ownerId;
-        this.receiverId = receiverId;
+        this.owner = owner;
+        this.receiver = receiver;
         this.hasBeenRequested = hasBeenRequested;
         this.hasBeenAccepted = hasBeenAccepted;
     }
@@ -60,20 +64,21 @@ public class Topo {
         this.hasBeenRequested = hasBeenRequested;
     }
 
-    public Long getReceiverId() {
-        return receiverId;
+    public UserAccount getOwner() {
+        return owner;
     }
 
-    public void setReceiverId(Long receiverId) {
-        this.receiverId = receiverId;
+    public void setOwner(UserAccount owner) {
+        this.owner = owner;
     }
 
-    public Long getOwnerId() {
-        return ownerId;
+    @Nullable
+    public UserAccount getReceiver() {
+        return receiver;
     }
 
-    public void setOwnerId(Long ownerId) {
-        this.ownerId = ownerId;
+    public void setReceiver(@Nullable UserAccount receiver) {
+        this.receiver = receiver;
     }
 
     public Long getId() {
@@ -133,8 +138,8 @@ public class Topo {
                 ", location='" + location + '\'' +
                 ", releaseDate='" + releaseDate + '\'' +
                 ", isAvailable=" + isAvailable +
-                ", ownerId=" + ownerId +
-                ", receiverId=" + receiverId +
+                ", ownerId=" + owner +
+                ", receiverId=" + receiver +
                 '}';
     }
 

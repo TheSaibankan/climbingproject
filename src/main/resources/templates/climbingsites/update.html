@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<link rel="stylesheet" type="text/css" href="../../static/css/styleWeb.css">
+<head>
+    <meta charset="UTF-8">
+    <title>Modifier le spot</title>
+</head>
+<body>
+<header>
+    <h1>Bienvenue sur HappyClimbing !</h1>
+    <h2>Projet OpenClassrooms par Antoine Domergue</h2>
+</header>
+<nav>
+    <h3><a href="/">Page d'acceuil</a></h3>
+    <h3><a href="/alltopos">Liste des topos</a></h3>
+    <div>
+        <h3><a href="/register">S'inscrire</a></h3>
+        <h3><a href="/userinterface">Mon espace perso</a></h3>
+    </div>
+</nav>
+<form th:action="@{/updatespot/{id}(id=${currentSpot.id})}" th:object="${currentSpot}" method="post">
+
+    <label for="titre">Nom :</label>
+    <input type="text" id="titre" th:field="*{name}">
+    <br/>
+
+    <label for="description">Description :</label>
+    <textarea id="description" th:field="*{description}"/>
+    <br/>
+
+    <label for="location">Location :</label>
+    <input type="text" id="location" th:field="*{location}">
+    <br/>
+
+    <label for="cotation">Cotation :</label>
+    <input type="text" id="cotation" th:field="*{cotation}">
+    <br/>
+
+    <div th:if="${currentUser.admin == true}">
+        <label for="official">Officiel ?</label>
+        <input type="checkbox" id="official" th:field="*{official}">
+        <br/>
+    </div>
+
+    <input type="submit" value="Enregistrer"> <form/>
+
+</form>
+</body>
+</html>
