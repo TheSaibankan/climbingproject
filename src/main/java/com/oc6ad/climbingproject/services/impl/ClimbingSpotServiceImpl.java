@@ -8,7 +8,11 @@ import com.oc6ad.climbingproject.services.UserAccountService;
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.stereotype.Service;
 
+import javax.transaction.Transactional;
+import java.util.Optional;
+
 @Service
+@Transactional
 public class ClimbingSpotServiceImpl extends AbstractService<ClimbingSpot, Long> implements ClimbingSpotService {
 
     private final ClimbingSpotRepo climbingSpotRepo;
@@ -20,9 +24,19 @@ public class ClimbingSpotServiceImpl extends AbstractService<ClimbingSpot, Long>
     }
 
     @Override
+    public Iterable<ClimbingSpot> findAllSpots(){
+        return climbingSpotRepo.findAll();
+    }
+
+    @Override
     public void addNewSpot(ClimbingSpot climbingSpot){
         climbingSpot.setUserAccount(userAccountService.getCurrentUserAccount());
         save(climbingSpot);
+    }
+
+    @Override
+    public Optional<ClimbingSpot> findById(Long var1) {
+        return Optional.ofNullable(climbingSpotRepo.findByUID(var1));
     }
 
     @Override

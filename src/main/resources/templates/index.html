@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
-<link rel="stylesheet" type="text/css" href="css/styleWeb.css">
+<link rel="stylesheet" type="text/css" th:href="@{/css/styleWeb.css}" >
 <head>
     <meta charset="UTF-8">
     <title>Page d'acceuil</title>
@@ -32,9 +32,14 @@
         <td><a th:href="@{/climbingspot/{id}(id=${climbingspot.id})}" th:text="${climbingspot.name}"></a></td>
         <td th:text="${climbingspot.location}"></td>
         <div th:if="${isConnected == true}">
-            <td th:if="${currentUser.admin == true || currentUser == climbingspot.userAccount}">
-                <a th:href="@{/editspot/{id}(id=${climbingspot.id})}">Modifier</a>
-            </td>
+                <td>
+                    <a th:href="@{/editspot/{id}(id=${climbingspot.id})}">Modifier</a>
+                </td>
+            <div th:if="${currentUser.admin == true || currentUser == climbingspot.userAccount}">
+                <td>
+                    <a th:href="@{/deletespot/{id}(id=${climbingspot.id})}">Supprimer</a>
+                </td>
+            </div>
         </div>
     </tr>
 </table>

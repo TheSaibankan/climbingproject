@@ -19,12 +19,15 @@ public class UserAccount {
     private boolean isAdmin;
 
     @OneToMany
+    @JoinColumn(name="user_account_id")
     private Set<Topo> topos = new HashSet<>();
 
     @OneToMany
+    @JoinColumn(name="user_account_id")
     private Set<ClimbingSpot> climbingSpots = new HashSet<>();
 
     @OneToMany
+    @JoinColumn(name="user_account_id")
     private Set<Comment> comments = new HashSet<>();
 
     public UserAccount() {

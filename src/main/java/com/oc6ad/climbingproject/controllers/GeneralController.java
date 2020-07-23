@@ -1,10 +1,9 @@
 package com.oc6ad.climbingproject.controllers;
 
 import com.oc6ad.climbingproject.model.UserAccount;
-import com.oc6ad.climbingproject.repositories.ClimbingSpotRepo;
+import com.oc6ad.climbingproject.services.ClimbingSpotService;
 import com.oc6ad.climbingproject.services.TopoService;
 import com.oc6ad.climbingproject.services.UserAccountService;
-import org.hibernate.Session;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -13,18 +12,18 @@ import org.springframework.web.bind.annotation.*;
 public class GeneralController {
 
     private final UserAccountService userAccountService;
-    private final ClimbingSpotRepo climbingSpotRepo;
     private final TopoService topoService;
+    private final ClimbingSpotService climbingSpotService;
 
-    public GeneralController(UserAccountService userAccountService, ClimbingSpotRepo climbingSpotRepo, TopoService topoService) {
+    public GeneralController(UserAccountService userAccountService, TopoService topoService, ClimbingSpotService climbingSpotService) {
         this.userAccountService = userAccountService;
-        this.climbingSpotRepo = climbingSpotRepo;
         this.topoService = topoService;
+        this.climbingSpotService = climbingSpotService;
     }
 
     @GetMapping("/")
     public String getHome(Model model){
-        model.addAttribute("climbingspots", climbingSpotRepo.findAll());
+        model.addAttribute("climbingspots", climbingSpotService.findAllSpots());
         model.addAttribute("isConnected", userAccountService.isUserConnected());
         model.addAttribute("currentUser", userAccountService.getCurrentUserAccount());
         return "index";

@@ -2,6 +2,7 @@ package com.oc6ad.climbingproject.model;
 
 import javax.persistence.*;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Objects;
 import java.util.Set;
 
@@ -18,10 +19,15 @@ public class ClimbingSpot {
     private String cotation;
     private String description;
 
+    @OneToMany
+    @JoinColumn(name="climbing_spot_id")
+    private List<Comment> comments;
+
     @ManyToOne
     private UserAccount userAccount;
 
     @OneToMany
+    @JoinColumn(name="climbing_spot_id")
     private Set<Sector> sectors = new HashSet<>();
 
     public ClimbingSpot() {
@@ -101,6 +107,15 @@ public class ClimbingSpot {
         this.sectors = sectors;
     }
 
+    public List<Comment> getComments() {
+        return comments;
+    }
+
+    public ClimbingSpot setComments(List<Comment> comments) {
+        this.comments = comments;
+        return this;
+    }
+
     @Override
     public String toString() {
         return "ClimbingSpot{" +
@@ -111,6 +126,7 @@ public class ClimbingSpot {
                 ", cotation='" + cotation + '\'' +
                 ", userAccount=" + userAccount +
                 ", sectors=" + sectors +
+                ", comments=" + comments +
                 '}';
     }
 

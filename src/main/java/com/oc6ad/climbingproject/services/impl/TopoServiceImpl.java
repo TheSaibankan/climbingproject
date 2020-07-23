@@ -10,19 +10,19 @@ import com.oc6ad.climbingproject.services.UserAccountService;
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.stereotype.Service;
 
+import javax.transaction.Transactional;
 import java.util.Set;
 
 @Service
+@Transactional
 public class TopoServiceImpl extends AbstractService<Topo, Long> implements TopoService {
 
     private final TopoRepo topoRepo;
     private final UserAccountService userAccountService;
-    private final UserAccountRepo userAccountRepo;
 
-    public TopoServiceImpl(TopoRepo topoRepo, UserAccountService userAccountService, UserAccountRepo userAccountRepo) {
+    public TopoServiceImpl(TopoRepo topoRepo, UserAccountService userAccountService) {
         this.topoRepo = topoRepo;
         this.userAccountService = userAccountService;
-        this.userAccountRepo = userAccountRepo;
     }
 
     @Override

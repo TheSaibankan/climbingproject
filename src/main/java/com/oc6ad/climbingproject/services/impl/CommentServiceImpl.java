@@ -1,44 +1,44 @@
 package com.oc6ad.climbingproject.services.impl;
 
 import com.oc6ad.climbingproject.model.Comment;
-import com.oc6ad.climbingproject.model.UserAccount;
 import com.oc6ad.climbingproject.repositories.ClimbingSpotRepo;
 import com.oc6ad.climbingproject.repositories.CommentRepo;
 import com.oc6ad.climbingproject.services.AbstractService;
+import com.oc6ad.climbingproject.services.ClimbingSpotService;
 import com.oc6ad.climbingproject.services.CommentService;
 import com.oc6ad.climbingproject.services.UserAccountService;
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.stereotype.Service;
 
+import javax.transaction.Transactional;
+import java.util.Set;
+
 @Service
+@Transactional
 public class CommentServiceImpl extends AbstractService<Comment, Long> implements CommentService {
 
     private final CommentRepo commentRepo;
     private final UserAccountService userAccountService;
-    private final ClimbingSpotRepo climbingSpotRepo;
+    private final ClimbingSpotService climbingSpotService;
 
-    public CommentServiceImpl(CommentRepo commentRepo, UserAccountService userAccountService, ClimbingSpotRepo climbingSpotRepo) {
+    public CommentServiceImpl(CommentRepo commentRepo, UserAccountService userAccountService, ClimbingSpotService climbingSpotService) {
         this.commentRepo = commentRepo;
         this.userAccountService = userAccountService;
-        this.climbingSpotRepo = climbingSpotRepo;
+        this.climbingSpotService = climbingSpotService;
     }
 
     @Override
     public void addNewComment(Long idClimbingSpot, Comment comment){
         comment.setUserAccount(userAccountService.getCurrentUserAccount());
-        comment.setClimbingSpot(climbingSpotRepo.findById(idClimbingSpot).get());
+        comment.setClimbingSpot(climbingSpotService.findById(idClimbingSpot).get());
         save(comment);
     }
 
     @Override
-    public boolean isCommentDeletable(Long idComment){
-        if (userAccountService.isUserConnected()){
-            UserAccount currentUser = userAccountService.getCurrentUserAccount();
-            return currentUser.isAdmin() || commentRepo.findById(idComment).get().getUserAccount() == currentUser;
-        } else {
-            return false;
-        }
+    public Set<Comment> findAllBySpot(Long id){
+       return commentRepo.findAllByClimbingSpot_Id(id);
     }
+
 
     @Override
     public CrudRepository<Comment, Long> getRepository() {

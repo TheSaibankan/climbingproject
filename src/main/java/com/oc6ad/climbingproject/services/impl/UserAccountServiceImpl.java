@@ -11,9 +11,11 @@ import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 
+import javax.transaction.Transactional;
 import java.util.Collection;
 
 @Service
+@Transactional
 public class UserAccountServiceImpl extends AbstractService<UserAccount, Long> implements UserAccountService {
     private final Cryptpass cryptpass;
     private final UserAccountRepo userAccountRepo;

@@ -18,6 +18,7 @@ public class Sector {
     private ClimbingSpot climbingSpot;
 
     @OneToMany
+    @JoinColumn(name="sector_id")
     private Set<Route> routes = new HashSet<>();
 
     public Sector(){
