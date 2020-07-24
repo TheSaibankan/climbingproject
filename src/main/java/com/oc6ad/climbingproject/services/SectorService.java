@@ -6,5 +6,5 @@ public interface SectorService extends CrudService<Sector, Long>{
 
     void addNewSector(Long spotId, Sector sector);
 
-    void updateSector(Long spotId, Sector sector);
+    void updateSector(Long spotId, Long sectorId, Sector sector);
 }

@@ -29,7 +29,8 @@ public class SectorServiceImpl extends AbstractService<Sector, Long> implements 
     }
 
     @Override
-    public void updateSector(Long spotId, Sector sector){
+    public void updateSector(Long spotId, Long sectorId, Sector sector){
+        sector.setId(sectorId);
         sector.setClimbingSpot(climbingSpotService.findById(spotId).get());
         save(sector);
     }

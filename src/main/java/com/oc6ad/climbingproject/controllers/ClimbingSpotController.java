@@ -108,14 +108,14 @@ public class ClimbingSpotController {
         return "climbingsites/results";
     }
 
-    @PostMapping("/updatesector/{id}")
-    public String postUpdateSector(@PathVariable("id") Long id, @Validated Sector sector, BindingResult result, Model model){
+    @PostMapping("/updatesector/{idSpot}/{idSector}")
+    public String postUpdateSector(@PathVariable("idSpot") Long idSpot, @PathVariable("idSector") Long idSector, @Validated Sector sector, BindingResult result, Model model){
         if (result.hasErrors()){
-            sector.setId(id);
+            sector.setId(idSector);
             return "climbingsites/updateSector";
         }
-        sectorService.save(sector);
-        model.addAttribute("spotId", sectorService.findById(id).get().getClimbingSpot().getId());
+        sectorService.updateSector(idSpot, idSector, sector);
+        model.addAttribute("spotId", idSpot);
         return "climbingsites/resultsUpdateSpot";
     }
 

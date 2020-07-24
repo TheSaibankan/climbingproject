@@ -5,7 +5,7 @@
     <title>Nouveau secteur</title>
 </head>
 <body>
-<form th:action="@{/updatesector/{id}(id=${currentSector.id})}" th:object="${currentSector}" method="post">
+<form th:action="@{/updatesector/{idSpot}/{idSector}(idSpot=${currentSector.climbingSpot.id}, idSector=${currentSector.id})}" th:object="${currentSector}" method="post">
 
     <label for="titre">Nom :</label>
     <input type="text" id="titre" th:field="*{name}">
