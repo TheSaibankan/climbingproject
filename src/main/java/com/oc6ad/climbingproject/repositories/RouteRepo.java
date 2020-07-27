@@ -8,5 +8,5 @@ import java.util.Set;
 
 @Repository
 public interface RouteRepo extends CrudRepository<Route, Long> {
-    Set<Route> findAllBySector_ClimbingSpot_Id(Long id);
+    void deleteAllBySector_Id(Long sectorId);
 }

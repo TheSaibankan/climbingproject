@@ -4,7 +4,9 @@ import com.oc6ad.climbingproject.model.Sector;
 import com.oc6ad.climbingproject.repositories.SectorRepo;
 import com.oc6ad.climbingproject.services.AbstractService;
 import com.oc6ad.climbingproject.services.ClimbingSpotService;
+import com.oc6ad.climbingproject.services.RouteService;
 import com.oc6ad.climbingproject.services.SectorService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.stereotype.Service;
 
@@ -22,6 +24,9 @@ public class SectorServiceImpl extends AbstractService<Sector, Long> implements 
         this.climbingSpotService = climbingSpotService;
     }
 
+    @Autowired
+    private RouteService routeService;
+
     @Override
     public void addNewSector(Long spotId, Sector sector){
         sector.setClimbingSpot(climbingSpotService.findById(spotId).get());
@@ -33,6 +38,12 @@ public class SectorServiceImpl extends AbstractService<Sector, Long> implements 
         sector.setId(sectorId);
         sector.setClimbingSpot(climbingSpotService.findById(spotId).get());
         save(sector);
+    }
+
+    @Override
+    public void deleteAllBySectorId(Long spotId){
+        routeService.deleteAllBySectorId(spotId);
+        sectorRepo.deleteById(spotId);
     }
 
 

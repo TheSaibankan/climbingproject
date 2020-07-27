@@ -2,6 +2,7 @@ package com.oc6ad.climbingproject.controllers;
 
 import com.oc6ad.climbingproject.model.ClimbingSpot;
 import com.oc6ad.climbingproject.model.Comment;
+import com.oc6ad.climbingproject.model.Route;
 import com.oc6ad.climbingproject.model.Sector;
 import com.oc6ad.climbingproject.repositories.CommentRepo;
 import com.oc6ad.climbingproject.repositories.RouteRepo;
@@ -35,7 +36,6 @@ public class ClimbingSpotController {
         ClimbingSpot climbingSpot = climbingSpotService.findById(id).get();
         model.addAttribute("currentSpot", climbingSpot);
         model.addAttribute("currentSectors", climbingSpot.getSectors());
-        model.addAttribute("currentRoutes", routeService.findAllBySectorClimbingSpotId(id));
         model.addAttribute("comments", climbingSpot.getComments());
         model.addAttribute("isConnected", userAccountService.isUserConnected());
         model.addAttribute("comment", new Comment());
@@ -57,11 +57,25 @@ public class ClimbingSpotController {
         return "climbingsites/registerSector";
     }
 
+    @GetMapping("/addnewroute/{id}")
+    public String getFormNewRoute(@PathVariable("id") Long id, Model model){
+        model.addAttribute("route", new Route());
+        model.addAttribute("currentSector", sectorService.findById(id).get());
+        return "climbingsites/registerRoute";
+    }
+
     @PostMapping("/registersectorsave/{id}")
     public String postFormNewSector(@ModelAttribute Sector sector, @PathVariable("id") Long id, Model model){
         ClimbingSpot currentSpot = climbingSpotService.findById(id).get();
         model.addAttribute("spotId", currentSpot.getId());
         sectorService.addNewSector(id, sector);
+        return "climbingsites/resultsUpdateSpot";
+    }
+
+    @PostMapping("registerroutesave/{id}")
+    public String postFormNewRoute(@ModelAttribute Route route, @PathVariable("id") Long id, Model model){
+        model.addAttribute("spotId", sectorService.findById(id).get().getClimbingSpot().getId());
+        routeService.addNewRoute(id, route);
         return "climbingsites/resultsUpdateSpot";
     }
 
@@ -74,15 +88,8 @@ public class ClimbingSpotController {
     @PostMapping("/registernewcomment/{id}")
     public String postNewComment(@ModelAttribute Comment comment, @PathVariable("id") Long id, Model model){
         commentService.addNewComment(id, comment);
-        ClimbingSpot climbingSpot = climbingSpotService.findById(id).get();
-        model.addAttribute("currentSectors", climbingSpot.getSectors());
-        model.addAttribute("currentRoutes", routeService.findAllBySectorClimbingSpotId(id));
-        model.addAttribute("currentSpot", climbingSpot);
-        model.addAttribute("comments", climbingSpot.getComments());
-        model.addAttribute("isConnected", userAccountService.isUserConnected());
-        model.addAttribute("comment", new Comment());
-        model.addAttribute("currentUser", userAccountService.getCurrentUserAccount());
-        return "climbingsites/climbingspot";
+        model.addAttribute("spotId", id);
+        return "climbingsites/resultsUpdateSpot";
     }
 
     @GetMapping("/editspot/{id}")
@@ -131,7 +138,7 @@ public class ClimbingSpotController {
     @GetMapping("/deletesector/{id}")
     public String getDeleteSector(@PathVariable("id") Long id, Model model){
         model.addAttribute("spotId", sectorService.findById(id).get().getClimbingSpot().getId());
-        sectorService.deleteById(id);
+        sectorService.deleteAllBySectorId(id);
         return "climbingsites/resultsUpdateSpot";
     }
 
@@ -139,6 +146,6 @@ public class ClimbingSpotController {
     public String deleteComment(@PathVariable("idComment") Long idComment, Model model){
         model.addAttribute("spotId", commentService.findById(idComment).get().getClimbingSpot().getId());
         commentService.deleteById(idComment);
-        return "climbingsites/commentDeleted";
+        return "climbingsites/resultsUpdateSpot";
     }
 }
