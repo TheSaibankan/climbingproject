@@ -1,5 +1,6 @@
 package com.oc6ad.climbingproject.services;
 
+import com.oc6ad.climbingproject.model.ClimbingSpot;
 import com.oc6ad.climbingproject.model.Sector;
 
 public interface SectorService extends CrudService<Sector, Long>{
@@ -9,4 +10,8 @@ public interface SectorService extends CrudService<Sector, Long>{
     void updateSector(Long spotId, Long sectorId, Sector sector);
 
     void deleteAllBySectorId(Long spotId);
+
+    void deleteAllBySpotId(Long spotId);
+
+    ClimbingSpot retrieveClimbingSpot(Long sectorId);
 }

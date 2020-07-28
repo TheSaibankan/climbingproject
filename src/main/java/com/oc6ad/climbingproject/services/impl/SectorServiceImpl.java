@@ -1,5 +1,6 @@
 package com.oc6ad.climbingproject.services.impl;
 
+import com.oc6ad.climbingproject.model.ClimbingSpot;
 import com.oc6ad.climbingproject.model.Sector;
 import com.oc6ad.climbingproject.repositories.SectorRepo;
 import com.oc6ad.climbingproject.services.AbstractService;
@@ -17,12 +18,13 @@ import javax.transaction.Transactional;
 public class SectorServiceImpl extends AbstractService<Sector, Long> implements SectorService {
 
     private final SectorRepo sectorRepo;
-    private final ClimbingSpotService climbingSpotService;
 
-    public SectorServiceImpl(SectorRepo sectorRepo, ClimbingSpotService climbingSpotService) {
+    public SectorServiceImpl(SectorRepo sectorRepo) {
         this.sectorRepo = sectorRepo;
-        this.climbingSpotService = climbingSpotService;
     }
+
+    @Autowired
+    private ClimbingSpotService climbingSpotService;
 
     @Autowired
     private RouteService routeService;
@@ -44,6 +46,16 @@ public class SectorServiceImpl extends AbstractService<Sector, Long> implements 
     public void deleteAllBySectorId(Long spotId){
         routeService.deleteAllBySectorId(spotId);
         sectorRepo.deleteById(spotId);
+    }
+
+    @Override
+    public void deleteAllBySpotId(Long spotId){
+        sectorRepo.deleteAllByClimbingSpot_Id(spotId);
+    }
+
+    @Override
+    public ClimbingSpot retrieveClimbingSpot(Long sectorId){
+        return sectorRepo.findById(sectorId).get().getClimbingSpot();
     }
 
 

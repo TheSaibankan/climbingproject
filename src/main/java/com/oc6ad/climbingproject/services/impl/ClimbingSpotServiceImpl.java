@@ -2,9 +2,8 @@ package com.oc6ad.climbingproject.services.impl;
 
 import com.oc6ad.climbingproject.model.ClimbingSpot;
 import com.oc6ad.climbingproject.repositories.ClimbingSpotRepo;
-import com.oc6ad.climbingproject.services.AbstractService;
-import com.oc6ad.climbingproject.services.ClimbingSpotService;
-import com.oc6ad.climbingproject.services.UserAccountService;
+import com.oc6ad.climbingproject.services.*;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.stereotype.Service;
 
@@ -23,6 +22,12 @@ public class ClimbingSpotServiceImpl extends AbstractService<ClimbingSpot, Long>
         this.userAccountService = userAccountService;
     }
 
+    @Autowired
+    private SectorService sectorService;
+
+    @Autowired
+    private RouteService routeService;
+
     @Override
     public Iterable<ClimbingSpot> findAllSpots(){
         return climbingSpotRepo.findAll();
@@ -32,6 +37,13 @@ public class ClimbingSpotServiceImpl extends AbstractService<ClimbingSpot, Long>
     public void addNewSpot(ClimbingSpot climbingSpot){
         climbingSpot.setUserAccount(userAccountService.getCurrentUserAccount());
         save(climbingSpot);
+    }
+
+    @Override
+    public void deleteSpot(Long spotId){
+        routeService.deleteAllBySectorSpotId(spotId);
+        sectorService.deleteAllBySpotId(spotId);
+        deleteById(spotId);
     }
 
     @Override

@@ -1,10 +1,12 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
+<link rel="stylesheet" type="text/css" th:href="@{/css/styleWeb.css}" >
 <head>
     <meta charset="UTF-8">
     <title>Nouveau secteur</title>
 </head>
 <body>
+<div th:insert="index.html :: menu"/>
 <form th:action="@{/updatesector/{idSpot}/{idSector}(idSpot=${currentSector.climbingSpot.id}, idSector=${currentSector.id})}" th:object="${currentSector}" method="post">
 
     <label for="titre">Nom :</label>

@@ -128,7 +128,7 @@ public class ClimbingSpotController {
 
     @GetMapping("/deletespot/{id}")
     public String getHome(@PathVariable("id") Long id, Model model){
-        climbingSpotService.deleteById(id);
+        climbingSpotService.deleteSpot(id);
         model.addAttribute("climbingspots", climbingSpotService.findAll());
         model.addAttribute("isConnected", userAccountService.isUserConnected());
         model.addAttribute("currentUser", userAccountService.getCurrentUserAccount());
@@ -137,8 +137,15 @@ public class ClimbingSpotController {
 
     @GetMapping("/deletesector/{id}")
     public String getDeleteSector(@PathVariable("id") Long id, Model model){
-        model.addAttribute("spotId", sectorService.findById(id).get().getClimbingSpot().getId());
+        model.addAttribute("spotId", sectorService.retrieveClimbingSpot(id).getId());
         sectorService.deleteAllBySectorId(id);
+        return "climbingsites/resultsUpdateSpot";
+    }
+
+    @GetMapping("/deleteroute/{id}")
+    public String getDeleteRoute(@PathVariable("id") Long id, Model model){
+        model.addAttribute("spotId", routeService.retrieveClimbingSpot(id).getId());
+        routeService.deleteById(id);
         return "climbingsites/resultsUpdateSpot";
     }
 

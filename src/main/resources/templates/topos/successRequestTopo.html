@@ -1,22 +1,12 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<link rel="stylesheet" type="text/css" th:href="@{/css/styleWeb.css}" >
 <head>
     <meta charset="UTF-8">
     <title>Demande envoyé !</title>
 </head>
 <body>
-<header>
-    <h1>Bienvenue sur HappyClimbing !</h1>
-    <h2>Projet OpenClassrooms par Antoine Domergue</h2>
-</header>
-<nav>
-    <h3><a href="/">Page d'acceuil</a></h3>
-    <h3><a href="/alltopos">Liste des topos</a></h3>
-    <div>
-        <h3><a href="/register">S'inscrire</a></h3>
-        <h3><a href="/userinterface">Mon espace perso</a></h3>
-    </div>
-</nav>
+<div th:insert="index.html :: menu"/>
 <h2>Votre demande a bien été envoyé au propriétaire du topo !</h2>
 <p>Si votre demande est acceptée, vous recevrez un mail de se part prochainement.</p>
 </body>

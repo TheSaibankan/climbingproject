@@ -8,5 +8,6 @@ import java.util.Set;
 
 @Repository
 public interface RouteRepo extends CrudRepository<Route, Long> {
-    void deleteAllBySector_Id(Long sectorId);
+    void deleteAllBySector_ClimbingSpot_Id(Long id);
+    void deleteAllBySector_Id(Long id);
 }

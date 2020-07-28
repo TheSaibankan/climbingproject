@@ -6,21 +6,23 @@
     <title>Page d'acceuil</title>
 </head>
 <body>
-<header>
-    <h1>Bienvenue sur HappyClimbing !</h1>
-    <h2>Projet OpenClassrooms par Antoine Domergue</h2>
-</header>
-<nav>
-    <h3><a href="/">Page d'acceuil</a></h3>
-    <h3><a href="/alltopos">Liste des topos</a></h3>
-    <div th:if="${isConnected == false}">
-        <h3><a href="/register">S'inscrire</a></h3>
-        <h3><a href="/login">Se connecter</a></h3>
-    </div>
-    <div th:if="${isConnected == true}">
-        <h3><a href="/userinterface">Mon espace perso</a></h3>
-    </div>
-</nav>
+<div th:fragment="menu">
+    <header>
+        <h1>Bienvenue sur HappyClimbing !</h1>
+        <h2>Projet OpenClassrooms par Antoine Domergue</h2>
+    </header>
+    <nav>
+        <h3><a href="/">Page d'acceuil</a></h3>
+        <h3><a href="/alltopos">Liste des topos</a></h3>
+        <div th:if="${isConnected == false}">
+            <h3><a href="/register">S'inscrire</a></h3>
+            <h3><a href="/login">Se connecter</a></h3>
+        </div>
+        <div th:if="${isConnected == true}">
+            <h3><a href="/userinterface">Mon espace perso</a></h3>
+        </div>
+    </nav>
+</div>
 <h3>Voici la liste des sites disponibles</h3>
 
 <div th:if="${isConnected == true}">
@@ -31,6 +33,8 @@
     <tr th:each="climbingspot : ${climbingspots}">
         <td><a th:href="@{/climbingspot/{id}(id=${climbingspot.id})}" th:text="${climbingspot.name}"></a></td>
         <td th:text="${climbingspot.location}"></td>
+        <td th:text="${climbingspot.cotation}"></td>
+        <td th:if="${climbingspot.official}">Spot officiel !</td>
         <div th:if="${isConnected == true}">
                 <td>
                     <a th:href="@{/editspot/{id}(id=${climbingspot.id})}">Modifier</a>

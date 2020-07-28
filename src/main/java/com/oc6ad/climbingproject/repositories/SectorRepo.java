@@ -12,4 +12,6 @@ import java.util.Set;
 public interface SectorRepo extends CrudRepository<Sector, Long> {
 
     Set<Sector> findAllByClimbingSpot_Id(Long id);
+
+    void deleteAllByClimbingSpot_Id(Long id);
 }

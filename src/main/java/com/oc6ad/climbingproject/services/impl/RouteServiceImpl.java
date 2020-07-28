@@ -1,5 +1,6 @@
 package com.oc6ad.climbingproject.services.impl;
 
+import com.oc6ad.climbingproject.model.ClimbingSpot;
 import com.oc6ad.climbingproject.model.Route;
 import com.oc6ad.climbingproject.repositories.RouteRepo;
 import com.oc6ad.climbingproject.services.AbstractService;
@@ -30,9 +31,19 @@ public class RouteServiceImpl extends AbstractService<Route, Long> implements Ro
     }
 
     @Override
+    public void deleteAllBySectorSpotId(Long spotId){
+        routeRepo.deleteAllBySector_ClimbingSpot_Id(spotId);
+    }
+
+    @Override
     public void addNewRoute(Long sectorId, Route route){
         route.setSector(sectorService.findById(sectorId).get());
         save(route);
+    }
+
+    @Override
+    public ClimbingSpot retrieveClimbingSpot(Long routeId){
+        return routeRepo.findById(routeId).get().getSector().getClimbingSpot();
     }
 
     @Override
