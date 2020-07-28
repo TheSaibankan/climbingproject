@@ -22,8 +22,14 @@ public class GeneralController {
     }
 
     @GetMapping("/")
-    public String getHome(Model model){
-        model.addAttribute("climbingspots", climbingSpotService.findAllSpots());
+    public String getHome(Model model, String search){
+
+        if (search != null){
+            model.addAttribute("climbingspots", climbingSpotService.findBySearch(search));
+        } else {
+            model.addAttribute("climbingspots", climbingSpotService.findAllSpots());
+        }
+
         model.addAttribute("isConnected", userAccountService.isUserConnected());
         model.addAttribute("currentUser", userAccountService.getCurrentUserAccount());
         return "index";

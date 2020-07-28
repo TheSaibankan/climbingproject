@@ -28,7 +28,11 @@
 <div th:if="${isConnected == true}">
     <a href="/registerspot">Ajouter un spot d'escalade</a>
 </div>
+<form th:action="@{/}" method="get">
+    <input id="search" type="text" name="search">
+    <button type="submit">Chercher</button>
 
+</form>
 <table>
     <tr th:each="climbingspot : ${climbingspots}">
         <td><a th:href="@{/climbingspot/{id}(id=${climbingspot.id})}" th:text="${climbingspot.name}"></a></td>
