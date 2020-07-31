@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
-<link rel="stylesheet" type="text/css" th:href="@{/css/styleWeb.css}" >
+<div th:insert="index.html :: css"/>
 <head>
     <meta charset="UTF-8">
     <title>Spot enregistré !</title>
@@ -9,5 +9,6 @@
 <div th:insert="index.html :: menu"/>
 <h1>Bravo !</h1>
 <p><strong>L'enregistrement de votre spot s'est déroulé sans accro !</strong></p>
+<div th:insert="index.html :: scripts"/>
 </body>
 </html>

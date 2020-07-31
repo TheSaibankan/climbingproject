@@ -12,6 +12,9 @@ import org.springframework.stereotype.Component;
 
 import javax.sql.DataSource;
 
+/**
+ * BootstrapData displays basic info while the application is running
+ */
 @Component
 public class BootstrapData implements CommandLineRunner {
 

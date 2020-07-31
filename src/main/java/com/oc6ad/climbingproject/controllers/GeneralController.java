@@ -4,10 +4,14 @@ import com.oc6ad.climbingproject.model.UserAccount;
 import com.oc6ad.climbingproject.services.ClimbingSpotService;
 import com.oc6ad.climbingproject.services.TopoService;
 import com.oc6ad.climbingproject.services.UserAccountService;
+import org.apache.logging.log4j.util.Strings;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
+/**
+ * This controller deals with general mapping, such as the home page
+ */
 @Controller
 public class GeneralController {
 
@@ -24,7 +28,7 @@ public class GeneralController {
     @GetMapping("/")
     public String getHome(Model model, String search){
 
-        if (search != null){
+        if (Strings.isNotBlank(search)){
             model.addAttribute("climbingspots", climbingSpotService.findBySearch(search));
         } else {
             model.addAttribute("climbingspots", climbingSpotService.findAllSpots());
@@ -38,23 +42,27 @@ public class GeneralController {
     @GetMapping("/register")
     public String getFormNewUserAccount(Model model){
         model.addAttribute("userAccount", new UserAccount());
+        model.addAttribute("isConnected", userAccountService.isUserConnected());
         return "useraccounts/register";
     }
 
     @PostMapping("/registersave")
-    public String postFormNewUserAccount(@ModelAttribute UserAccount userAccount){
+    public String postFormNewUserAccount(@ModelAttribute UserAccount userAccount, Model model){
         userAccountService.addUserAccount(userAccount);
+        model.addAttribute("isConnected", userAccountService.isUserConnected());
         return "useraccounts/results";
     }
 
     @RequestMapping("/login")
-    public String getLogin(){
+    public String getLogin(Model model){
+        model.addAttribute("isConnected", userAccountService.isUserConnected());
         return "useraccounts/login";
     }
 
 
     @RequestMapping("/logoutsuccess")
-    public String getLogout(){
+    public String getLogout(Model model){
+        model.addAttribute("isConnected", userAccountService.isUserConnected());
         return "/";
     }
 
@@ -62,6 +70,7 @@ public class GeneralController {
     public String getUserSpace(Model model) {
         model.addAttribute("currentUser", userAccountService.getCurrentUserAccount());
         model.addAttribute("currentTopos", topoService.getToposByCurrentUser());
+        model.addAttribute("isConnected", userAccountService.isUserConnected());
         return "useraccounts/testLogin";
     }
 

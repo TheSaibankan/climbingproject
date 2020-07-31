@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
-<link rel="stylesheet" type="text/css" th:href="@{/css/styleWeb.css}" >
+<div th:insert="index.html :: css"/>
 <head>
     <meta charset="UTF-8">
     <title>Demande envoyé !</title>
@@ -9,5 +9,6 @@
 <div th:insert="index.html :: menu"/>
 <h2>Votre demande a bien été envoyé au propriétaire du topo !</h2>
 <p>Si votre demande est acceptée, vous recevrez un mail de se part prochainement.</p>
+<div th:insert="index.html :: scripts"/>
 </body>
 </html>

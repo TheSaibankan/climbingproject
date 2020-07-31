@@ -13,6 +13,9 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.web.util.matcher.AndRequestMatcher;
 import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
 
+/**
+ * Configuration class for Spring Security
+ */
 @Configuration
 @EnableWebSecurity
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
@@ -23,6 +26,10 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         this.userDetailsService = userDetailsService;
     }
 
+    /**
+     * @return provider (DaoAuthenticationProvider)
+     * Using userDetailsService and BCrypt as the encoder
+     */
     @Bean
     public AuthenticationProvider authenticationProvider(){
         DaoAuthenticationProvider provider = new DaoAuthenticationProvider();
@@ -31,6 +38,12 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         return provider;
     }
 
+    /**
+     * @param http
+     * @throws Exception
+     * Blocks all unauthorised access by requesting the user's authority
+     * Provides login and logout functionalities
+     */
     @Override
     protected void configure(HttpSecurity http) throws Exception {
         http

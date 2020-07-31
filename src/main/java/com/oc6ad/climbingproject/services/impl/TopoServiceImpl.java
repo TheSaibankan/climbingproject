@@ -25,6 +25,10 @@ public class TopoServiceImpl extends AbstractService<Topo, Long> implements Topo
         this.userAccountService = userAccountService;
     }
 
+    /**
+     * Add and save new topo
+     * @param topo
+     */
     @Override
     public void addNewTopo(Topo topo){
         topo.setOwner(userAccountService.getCurrentUserAccount());
@@ -32,17 +36,20 @@ public class TopoServiceImpl extends AbstractService<Topo, Long> implements Topo
         save(topo);
     }
 
+    /**
+     * Return all topos via the owner's ID
+     * @return Set<Topo>
+     */
     @Override
     public Set<Topo> getToposByCurrentUser(){
       Long idCurrentUser = userAccountService.getCurrentUserAccount().getId();
       return topoRepo.findByOwnerId(idCurrentUser);
     }
 
-    @Override
-    protected CrudRepository<Topo, Long> getRepository() {
-        return this.topoRepo;
-    }
-
+    /**
+     * Send a request to the topo's owner
+     * @param id
+     */
     @Override
     public void askForTopo(Long id) {
         Topo topo = topoRepo.findById(id).get();
@@ -52,6 +59,10 @@ public class TopoServiceImpl extends AbstractService<Topo, Long> implements Topo
         topoRepo.save(topo);
     }
 
+    /**
+     * Decline the request and reset topo's parameters
+     * @param id
+     */
     @Override
     public void declineRequestTopo(Long id) {
         Topo topo = topoRepo.findById(id).get();
@@ -60,6 +71,10 @@ public class TopoServiceImpl extends AbstractService<Topo, Long> implements Topo
         topoRepo.save(topo);
     }
 
+    /**
+     * Accept the request and set the topo as unavailable
+     * @param id
+     */
     @Override
     public void acceptRequestTopo(Long id) {
        Topo topo = topoRepo.findById(id).get();
@@ -69,11 +84,21 @@ public class TopoServiceImpl extends AbstractService<Topo, Long> implements Topo
        topoRepo.save(topo);
     }
 
+    /**
+     * Return the user who made the request
+     * @param id
+     * @return UserAccount
+     */
     @Override
     public UserAccount getUserRequesting(Long id) {
         return topoRepo.findById(id).get().getReceiver();
     }
 
+    /**
+     * Indicate if a certain topo can be requested
+     * @param id
+     * @return boolean
+     */
     @Override
     public boolean canBeRequested(Long id) {
         Topo topo = topoRepo.findById(id).get();
@@ -84,5 +109,10 @@ public class TopoServiceImpl extends AbstractService<Topo, Long> implements Topo
         else {
             return false;
         }
+    }
+
+    @Override
+    protected CrudRepository<Topo, Long> getRepository() {
+        return this.topoRepo;
     }
 }

@@ -22,24 +22,34 @@ public class ClimbingSpotServiceImpl extends AbstractService<ClimbingSpot, Long>
         this.climbingSpotRepo = climbingSpotRepo;
         this.userAccountService = userAccountService;
     }
-
     @Autowired
     private SectorService sectorService;
-
     @Autowired
     private RouteService routeService;
 
+    /**
+     * Returns all spots
+     * @return Iterable<ClimbingSpot>
+     */
     @Override
     public Iterable<ClimbingSpot> findAllSpots(){
         return climbingSpotRepo.findAll();
     }
 
+    /**
+     * Adds and save a new spot
+     * @param climbingSpot
+     */
     @Override
     public void addNewSpot(ClimbingSpot climbingSpot){
         climbingSpot.setUserAccount(userAccountService.getCurrentUserAccount());
         save(climbingSpot);
     }
 
+    /**
+     * Delete a spot via the ID
+     * @param spotId
+     */
     @Override
     public void deleteSpot(Long spotId){
         routeService.deleteAllBySectorSpotId(spotId);
@@ -47,16 +57,30 @@ public class ClimbingSpotServiceImpl extends AbstractService<ClimbingSpot, Long>
         deleteById(spotId);
     }
 
+    /**
+     * Use the search bar to retrieve a spot via its name, location or quotation
+     * @param search
+     * @return List<ClimbingSpot>
+     */
     @Override
     public List<ClimbingSpot> findBySearch(String search){
-        return climbingSpotRepo.findBySearch(search);
+        return climbingSpotRepo.findBySearch(search.toLowerCase());
     }
 
+    /**
+     * findById method now uses custom request via findByUID
+     * @param var1
+     * @return Optional<ClimbingSpot>
+     */
     @Override
     public Optional<ClimbingSpot> findById(Long var1) {
         return Optional.ofNullable(climbingSpotRepo.findByUID(var1));
     }
 
+    /**
+     * Grants access to CRUD methods without calling the repository
+     * @return CrudRepository<ClimbingSpot, Long>
+     */
     @Override
     protected CrudRepository<ClimbingSpot, Long> getRepository() {
         return this.climbingSpotRepo;

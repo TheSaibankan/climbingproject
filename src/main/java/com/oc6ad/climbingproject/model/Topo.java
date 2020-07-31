@@ -9,6 +9,9 @@ import java.util.HashSet;
 import java.util.Objects;
 import java.util.Set;
 
+/**
+ * Topo entity
+ */
 @Entity(name = "topos")
 public class Topo {
 

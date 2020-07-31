@@ -21,26 +21,43 @@ public class RouteServiceImpl extends AbstractService<Route, Long> implements Ro
     public RouteServiceImpl(RouteRepo routeRepo) {
         this.routeRepo = routeRepo;
     }
-
     @Autowired
     private SectorService sectorService;
 
+    /**
+     * Delete all routes via the sector's ID
+     * @param sectorId
+     */
     @Override
     public void deleteAllBySectorId(Long sectorId){
         routeRepo.deleteAllBySector_Id(sectorId);
     }
 
+    /**
+     * Delete all routes via the spot's ID
+     * @param spotId
+     */
     @Override
     public void deleteAllBySectorSpotId(Long spotId){
         routeRepo.deleteAllBySector_ClimbingSpot_Id(spotId);
     }
 
+    /**
+     * Add and save a new route
+     * @param sectorId
+     * @param route
+     */
     @Override
     public void addNewRoute(Long sectorId, Route route){
         route.setSector(sectorService.findById(sectorId).get());
         save(route);
     }
 
+    /**
+     *Retrieve the spot via the route's ID
+     * @param routeId
+     * @return ClimbingSpot
+     */
     @Override
     public ClimbingSpot retrieveClimbingSpot(Long routeId){
         return routeRepo.findById(routeId).get().getSector().getClimbingSpot();

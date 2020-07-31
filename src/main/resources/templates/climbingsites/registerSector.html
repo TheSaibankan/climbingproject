@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
-<link rel="stylesheet" type="text/css" th:href="@{/css/styleWeb.css}" >
+<div th:insert="index.html :: css"/>
 <head>
     <meta charset="UTF-8">
     <title>Nouveau secteur</title>
@@ -16,5 +16,6 @@
     <input type="submit" value="Enregistrer"> <form/>
 
 </form>
+<div th:insert="index.html :: scripts"/>
 </body>
 </html>

@@ -26,6 +26,10 @@ public class UserAccountServiceImpl extends AbstractService<UserAccount, Long> i
     }
 
 
+    /**
+     * Add and save a new UserAccount
+     * @param userAccount
+     */
     @Override
     public void addUserAccount(UserAccount userAccount) {
         String generatedSalt = cryptpass.getSalt();
@@ -34,18 +38,31 @@ public class UserAccountServiceImpl extends AbstractService<UserAccount, Long> i
         save(userAccount);
     }
 
+    /**
+     * Find an account via its login
+     * @param login
+     * @return userAccount
+     */
     @Override
     public UserAccount loadUserByLogin(String login) {
         UserAccount userAccount = userAccountRepo.findByLogin(login);
         return userAccount;
     }
 
+    /**
+     * Get the actual user by using SecurityContextHolder
+     * @return UserAccount
+     */
     @Override
     public UserAccount getCurrentUserAccount() {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         return userAccountRepo.findByLogin(authentication.getName());
     }
 
+    /**
+     * Is used to know if the current user is authenticated (not anonymous)
+     * @return boolean
+     */
     @Override
     public boolean isUserConnected() {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();

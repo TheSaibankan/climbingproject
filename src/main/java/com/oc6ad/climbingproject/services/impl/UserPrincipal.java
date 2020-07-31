@@ -8,6 +8,9 @@ import org.springframework.security.core.userdetails.UserDetails;
 import java.util.Collection;
 import java.util.Collections;
 
+/**
+ * This class uses UserDetails in order to configure Spring Security
+ */
 public class UserPrincipal implements UserDetails {
 
     private UserAccount userAccount;
@@ -16,6 +19,9 @@ public class UserPrincipal implements UserDetails {
         this.userAccount = userAccount;
     }
 
+    /**
+     * Authorities are determined via the role of the user
+     */
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
         return Collections.singletonList(new SimpleGrantedAuthority(userAccount.getRole()));

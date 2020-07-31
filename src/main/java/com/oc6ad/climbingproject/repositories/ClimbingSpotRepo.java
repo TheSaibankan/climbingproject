@@ -11,15 +11,24 @@ import java.util.List;
 @Repository
 public interface ClimbingSpotRepo extends CrudRepository<ClimbingSpot, Long> {
 
+    /**
+     * Custom request to minimize performance issues with database
+     * @param id
+     * @return
+     */
     @Query("select c from ClimbingSpot c " +
             "left join fetch c.comments com " +
             "left join fetch c.sectors s " +
             "where c.id = :id")
     ClimbingSpot findByUID(@Param("id") Long id);
 
-
-    @Query(value="SELECT * FROM climbing_spot c WHERE c.name LIKE %:search% " +
-            "OR c.location LIKE %:search% " +
-            "OR c.cotation LIKE %:search%", nativeQuery=true)
+    /**
+     * Search must be lowercase
+     * @param search
+     * @return
+     */
+    @Query(value="SELECT * FROM climbing_spot c WHERE lower(c.name) LIKE %:search% " +
+            "OR lower(c.location) LIKE %:search% " +
+            "OR lower(c.cotation) LIKE %:search%", nativeQuery=true)
     List<ClimbingSpot> findBySearch(@Param("search") String search);
 }

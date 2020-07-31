@@ -3,6 +3,9 @@ package com.oc6ad.climbingproject.model;
 import javax.persistence.*;
 import java.util.Objects;
 
+/**
+ * Comment entity
+ */
 @Entity(name = "comment")
 public class Comment {
 

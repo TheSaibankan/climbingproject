@@ -3,6 +3,9 @@ package com.oc6ad.climbingproject.model;
 import javax.persistence.*;
 import java.util.Objects;
 
+/**
+ * Route entity
+ */
 @Entity(name = "route")
 public class Route {
     @Id

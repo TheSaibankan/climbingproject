@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
-<link rel="stylesheet" type="text/css" th:href="@{/css/styleWeb.css}" >
+<div th:insert="index.html :: css"/>
 <head>
     <meta charset="UTF-8">
     <title>Topo enregistré</title>
@@ -9,5 +9,6 @@
 <div th:insert="index.html :: menu"/>
 <h1>Votre topo a bien été enregistré !</h1>
 <h3><a href="/userinterface">Cliquez ici</a> pour revenir sur votre profil.</h3>
+<div th:insert="index.html :: scripts"/>
 </body>
 </html>

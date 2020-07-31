@@ -14,6 +14,10 @@ import org.springframework.validation.BindingResult;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
+/**
+ * This controller deals with the requests regarding climbing spots and the data linked to those spots
+ * Spots, sectors, routes, comments...
+ */
 @Controller
 public class ClimbingSpotController {
 
@@ -47,6 +51,7 @@ public class ClimbingSpotController {
     public String getFormNewSpot(Model model){
         model.addAttribute("spot", new ClimbingSpot());
         model.addAttribute("currentUser", userAccountService.getCurrentUserAccount());
+        model.addAttribute("isConnected", userAccountService.isUserConnected());
         return "climbingsites/register";
     }
 
@@ -54,6 +59,7 @@ public class ClimbingSpotController {
     public String getFormNewSector(@PathVariable("id") Long id, Model model){
         model.addAttribute("sector", new Sector());
         model.addAttribute("currentSpot", climbingSpotService.findById(id).get());
+        model.addAttribute("isConnected", userAccountService.isUserConnected());
         return "climbingsites/registerSector";
     }
 
@@ -61,6 +67,7 @@ public class ClimbingSpotController {
     public String getFormNewRoute(@PathVariable("id") Long id, Model model){
         model.addAttribute("route", new Route());
         model.addAttribute("currentSector", sectorService.findById(id).get());
+        model.addAttribute("isConnected", userAccountService.isUserConnected());
         return "climbingsites/registerRoute";
     }
 
@@ -68,6 +75,7 @@ public class ClimbingSpotController {
     public String postFormNewSector(@ModelAttribute Sector sector, @PathVariable("id") Long id, Model model){
         ClimbingSpot currentSpot = climbingSpotService.findById(id).get();
         model.addAttribute("spotId", currentSpot.getId());
+        model.addAttribute("isConnected", userAccountService.isUserConnected());
         sectorService.addNewSector(id, sector);
         return "climbingsites/resultsUpdateSpot";
     }
@@ -75,19 +83,22 @@ public class ClimbingSpotController {
     @PostMapping("registerroutesave/{id}")
     public String postFormNewRoute(@ModelAttribute Route route, @PathVariable("id") Long id, Model model){
         model.addAttribute("spotId", sectorService.findById(id).get().getClimbingSpot().getId());
+        model.addAttribute("isConnected", userAccountService.isUserConnected());
         routeService.addNewRoute(id, route);
         return "climbingsites/resultsUpdateSpot";
     }
 
     @PostMapping("/registerspotsave")
-    public String postFormNewTopo(@ModelAttribute ClimbingSpot spot){
+    public String postFormNewTopo(@ModelAttribute ClimbingSpot spot, Model model){
         climbingSpotService.addNewSpot(spot);
+        model.addAttribute("isConnected", userAccountService.isUserConnected());
         return "climbingsites/results";
     }
 
     @PostMapping("/registernewcomment/{id}")
     public String postNewComment(@ModelAttribute Comment comment, @PathVariable("id") Long id, Model model){
         commentService.addNewComment(id, comment);
+        model.addAttribute("isConnected", userAccountService.isUserConnected());
         model.addAttribute("spotId", id);
         return "climbingsites/resultsUpdateSpot";
     }
@@ -96,17 +107,20 @@ public class ClimbingSpotController {
     public String updateSpot(@PathVariable("id") Long id, Model model){
         model.addAttribute("currentSpot", climbingSpotService.findById(id).get());
         model.addAttribute("currentUser", userAccountService.getCurrentUserAccount());
+        model.addAttribute("isConnected", userAccountService.isUserConnected());
         return "climbingsites/update";
     }
 
     @GetMapping("/editsector/{id}")
     public String updateSector(@PathVariable("id") Long id, Model model){
         model.addAttribute("currentSector", sectorService.findById(id).get());
+        model.addAttribute("isConnected", userAccountService.isUserConnected());
         return "climbingsites/updateSector";
     }
 
     @PostMapping("/updatespot/{id}")
     public String postUpdateTopo(@PathVariable("id") Long id, @Validated ClimbingSpot climbingSpot, BindingResult result, Model model){
+        model.addAttribute("isConnected", userAccountService.isUserConnected());
         if (result.hasErrors()) {
             climbingSpot.setId(id);
             return "climbingsites/update";
@@ -117,6 +131,7 @@ public class ClimbingSpotController {
 
     @PostMapping("/updatesector/{idSpot}/{idSector}")
     public String postUpdateSector(@PathVariable("idSpot") Long idSpot, @PathVariable("idSector") Long idSector, @Validated Sector sector, BindingResult result, Model model){
+        model.addAttribute("isConnected", userAccountService.isUserConnected());
         if (result.hasErrors()){
             sector.setId(idSector);
             return "climbingsites/updateSector";
@@ -137,6 +152,7 @@ public class ClimbingSpotController {
 
     @GetMapping("/deletesector/{id}")
     public String getDeleteSector(@PathVariable("id") Long id, Model model){
+        model.addAttribute("isConnected", userAccountService.isUserConnected());
         model.addAttribute("spotId", sectorService.retrieveClimbingSpot(id).getId());
         sectorService.deleteAllBySectorId(id);
         return "climbingsites/resultsUpdateSpot";
@@ -144,6 +160,7 @@ public class ClimbingSpotController {
 
     @GetMapping("/deleteroute/{id}")
     public String getDeleteRoute(@PathVariable("id") Long id, Model model){
+        model.addAttribute("isConnected", userAccountService.isUserConnected());
         model.addAttribute("spotId", routeService.retrieveClimbingSpot(id).getId());
         routeService.deleteById(id);
         return "climbingsites/resultsUpdateSpot";
@@ -151,6 +168,7 @@ public class ClimbingSpotController {
 
     @GetMapping("deletecomment/{idComment}")
     public String deleteComment(@PathVariable("idComment") Long idComment, Model model){
+        model.addAttribute("isConnected", userAccountService.isUserConnected());
         model.addAttribute("spotId", commentService.findById(idComment).get().getClimbingSpot().getId());
         commentService.deleteById(idComment);
         return "climbingsites/resultsUpdateSpot";

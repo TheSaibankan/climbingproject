@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
-<link rel="stylesheet" type="text/css" th:href="@{/css/styleWeb.css}">
+<div th:insert="index.html :: css"/>
 <head>
     <meta charset="UTF-8">
     <title th:text="${currentSpot.name}"></title>
@@ -55,7 +55,6 @@
         </form>
     </div>
 </div>
-
-
+<div th:insert="index.html :: scripts"/>
 </body>
 </html>

@@ -12,6 +12,9 @@ import org.springframework.stereotype.Service;
 
 import java.util.Collection;
 
+/**
+ * This class uses UserDetailsService in order to configure Spring Security
+ */
 @Service
 public class UserDetailsServiceImpl implements UserDetailsService {
 

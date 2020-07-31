@@ -11,7 +11,9 @@ import java.util.Set;
 @Repository
 public interface SectorRepo extends CrudRepository<Sector, Long> {
 
-    Set<Sector> findAllByClimbingSpot_Id(Long id);
-
+    /**
+     * Is used to delete all sectors linked to a certain spot
+     * @param id
+     */
     void deleteAllByClimbingSpot_Id(Long id);
 }

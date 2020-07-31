@@ -25,16 +25,26 @@ public class SectorServiceImpl extends AbstractService<Sector, Long> implements 
 
     @Autowired
     private ClimbingSpotService climbingSpotService;
-
     @Autowired
     private RouteService routeService;
 
+    /**
+     * Add and save a new sector
+     * @param spotId
+     * @param sector
+     */
     @Override
     public void addNewSector(Long spotId, Sector sector){
         sector.setClimbingSpot(climbingSpotService.findById(spotId).get());
         save(sector);
     }
 
+    /**
+     * Update a sector
+     * @param spotId
+     * @param sectorId
+     * @param sector
+     */
     @Override
     public void updateSector(Long spotId, Long sectorId, Sector sector){
         sector.setId(sectorId);
@@ -42,17 +52,30 @@ public class SectorServiceImpl extends AbstractService<Sector, Long> implements 
         save(sector);
     }
 
+    /**
+     * Delete routes linked to a certain sector, then delete the sector
+     * @param sectorId
+     */
     @Override
-    public void deleteAllBySectorId(Long spotId){
-        routeService.deleteAllBySectorId(spotId);
-        sectorRepo.deleteById(spotId);
+    public void deleteAllBySectorId(Long sectorId){
+        routeService.deleteAllBySectorId(sectorId);
+        sectorRepo.deleteById(sectorId);
     }
 
+    /**
+     * Delete all sectors linked to a certain spot
+     * @param spotId
+     */
     @Override
     public void deleteAllBySpotId(Long spotId){
         sectorRepo.deleteAllByClimbingSpot_Id(spotId);
     }
 
+    /**
+     * Retrieve a spot via the sector's ID
+     * @param sectorId
+     * @return ClimbingSpot
+     */
     @Override
     public ClimbingSpot retrieveClimbingSpot(Long sectorId){
         return sectorRepo.findById(sectorId).get().getClimbingSpot();

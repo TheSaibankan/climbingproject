@@ -1,55 +1,95 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
-<link rel="stylesheet" type="text/css" th:href="@{/css/styleWeb.css}" >
+<div th:fragment="css">
+    <link rel="stylesheet" type="text/css" th:href="@{/css/styleWeb.css}">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css"
+          integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">
+</div>
 <head>
     <meta charset="UTF-8">
     <title>Page d'acceuil</title>
 </head>
 <body>
 <div th:fragment="menu">
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark static-top">
+        <div class="container">
+            <a class="navbar-brand" href="/">HappyClimbing</a>
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarResponsive"
+                    aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarResponsive">
+                <ul class="navbar-nav ml-auto">
+                    <li class="nav-item">
+                        <a class="nav-link" href="/">Spots
+                            <span class="sr-only">(current)</span>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/alltopos">Topos</a>
+                    </li>
+                    <li class="nav-item" th:if="${isConnected == false}">
+                        <a class="nav-link" href="/register">S'inscrire</a>
+                    </li>
+                    <li class="nav-item" th:if="${isConnected == false}">
+                        <a class="nav-link" href="/login">Se connecter</a>
+                    </li>
+                    <li class="nav-item" th:if="${isConnected == true}">
+                        <a class="nav-link" href="/userinterface">Mon espace perso</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
     <header>
         <h1>Bienvenue sur HappyClimbing !</h1>
         <h2>Projet OpenClassrooms par Antoine Domergue</h2>
     </header>
-    <nav>
-        <h3><a href="/">Page d'acceuil</a></h3>
-        <h3><a href="/alltopos">Liste des topos</a></h3>
-        <div th:if="${isConnected == false}">
-            <h3><a href="/register">S'inscrire</a></h3>
-            <h3><a href="/login">Se connecter</a></h3>
-        </div>
-        <div th:if="${isConnected == true}">
-            <h3><a href="/userinterface">Mon espace perso</a></h3>
-        </div>
-    </nav>
 </div>
-<h3>Voici la liste des sites disponibles</h3>
 
-<div th:if="${isConnected == true}">
-    <a href="/registerspot">Ajouter un spot d'escalade</a>
-</div>
-<form th:action="@{/}" method="get">
-    <input id="search" type="text" name="search">
-    <button type="submit">Chercher</button>
 
-</form>
-<table>
-    <tr th:each="climbingspot : ${climbingspots}">
-        <td><a th:href="@{/climbingspot/{id}(id=${climbingspot.id})}" th:text="${climbingspot.name}"></a></td>
-        <td th:text="${climbingspot.location}"></td>
-        <td th:text="${climbingspot.cotation}"></td>
-        <td th:if="${climbingspot.official}">Spot officiel !</td>
-        <div th:if="${isConnected == true}">
-                <td>
-                    <a th:href="@{/editspot/{id}(id=${climbingspot.id})}">Modifier</a>
-                </td>
-            <div th:if="${currentUser.admin == true || currentUser == climbingspot.userAccount}">
-                <td>
-                    <a th:href="@{/deletespot/{id}(id=${climbingspot.id})}">Supprimer</a>
-                </td>
+<!-- Page Content -->
+<div class="container">
+    <div class="row">
+        <div class="col-lg-12 text-center">
+            <br/>
+            <div th:if="${isConnected == true}">
+                <a href="/registerspot">Ajouter un spot d'escalade</a>
             </div>
+            <form th:action="@{/}" method="get">
+                <input id="search" type="text" name="search">
+                <button type="submit">Chercher</button>
+            </form>
+            <br/>
+
+            <table>
+                <tr th:each="climbingspot : ${climbingspots}">
+                    <td><a th:href="@{/climbingspot/{id}(id=${climbingspot.id})}" th:text="${climbingspot.name}"></a>
+                    </td>
+                    <td th:text="${climbingspot.location}"></td>
+                    <td th:text="${climbingspot.cotation}"></td>
+                    <td th:if="${climbingspot.official}">Spot officiel !</td>
+                    <div th:if="${isConnected == true}">
+                        <td>
+                            <a th:href="@{/editspot/{id}(id=${climbingspot.id})}">Modifier</a>
+                        </td>
+                        <div th:if="${currentUser.admin == true || currentUser == climbingspot.userAccount}">
+                            <td>
+                                <a th:href="@{/deletespot/{id}(id=${climbingspot.id})}">Supprimer</a>
+                            </td>
+                        </div>
+                    </div>
+                </tr>
+            </table>
         </div>
-    </tr>
-</table>
+    </div>
+</div>
+<div th:fragment="scripts">
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"
+            integrity="sha256-4+XzXVhsDmqanXGHaHvgh1gMQKX40OUvDEBTu8JcmNs=" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js"
+            integrity="sha384-OgVRvuATP1z7JjHLkuOU7Xw704+h835Lr+6QL9UvYjZE3Ipu6Tp75j7Bh/kR0JKI"
+            crossorigin="anonymous"></script>
+</div>
 </body>
 </html>

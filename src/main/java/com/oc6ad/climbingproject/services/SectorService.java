@@ -9,7 +9,7 @@ public interface SectorService extends CrudService<Sector, Long>{
 
     void updateSector(Long spotId, Long sectorId, Sector sector);
 
-    void deleteAllBySectorId(Long spotId);
+    void deleteAllBySectorId(Long sectorId);
 
     void deleteAllBySpotId(Long spotId);
 

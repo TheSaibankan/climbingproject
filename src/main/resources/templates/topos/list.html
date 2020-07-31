@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.springframework.org/security/tags">
-<link rel="stylesheet" type="text/css" th:href="@{/css/styleWeb.css}" >
+<div th:insert="index.html :: css"/>
 <head>
     <meta charset="UTF-8">
     <title>Test de lecture de liste</title>
@@ -29,5 +29,6 @@
         </div>
     </tr>
 </table>
+<div th:insert="index.html :: scripts"/>
 </body>
 </html>

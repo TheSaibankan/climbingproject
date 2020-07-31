@@ -27,6 +27,11 @@ public class CommentServiceImpl extends AbstractService<Comment, Long> implement
         this.climbingSpotService = climbingSpotService;
     }
 
+    /**
+     * Add and save a new comment
+     * @param idClimbingSpot
+     * @param comment
+     */
     @Override
     public void addNewComment(Long idClimbingSpot, Comment comment){
         comment.setUserAccount(userAccountService.getCurrentUserAccount());
@@ -34,6 +39,11 @@ public class CommentServiceImpl extends AbstractService<Comment, Long> implement
         save(comment);
     }
 
+    /**
+     * Find all comments linked to a certain spot
+     * @param id
+     * @return Set<Comment>
+     */
     @Override
     public Set<Comment> findAllBySpot(Long id){
        return commentRepo.findAllByClimbingSpot_Id(id);

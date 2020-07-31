@@ -3,6 +3,9 @@ package com.oc6ad.climbingproject.model;
 import javax.persistence.*;
 import java.util.*;
 
+/**
+ * User account entity
+ */
 @Entity(name = "user_account")
 public class UserAccount {
 

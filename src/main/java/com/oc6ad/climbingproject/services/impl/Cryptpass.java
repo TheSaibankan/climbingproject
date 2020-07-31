@@ -4,6 +4,10 @@ import com.oc6ad.climbingproject.model.UserAccount;
 import org.springframework.security.crypto.bcrypt.BCrypt;
 import org.springframework.stereotype.Service;
 
+/**
+ * Old password encryptor class, is not used to provide security anymore
+ * Not deleted in order to test BCrypt later
+ */
 @Service
 public class Cryptpass {
 

@@ -14,6 +14,9 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 
+/**
+ * This controller deals only with requests regarding topos, including the exchange system
+ */
 @Controller
 public class TopoController {
 
@@ -37,42 +40,48 @@ public class TopoController {
 
     @GetMapping("/registertopo")
     public String getFormNewTopo(Model model){
+        model.addAttribute("isConnected", userAccountService.isUserConnected());
         model.addAttribute("topo", new Topo());
         return "topos/register";
     }
 
     @PostMapping("/registertoposave")
-    public String postFormNewTopo(@ModelAttribute Topo topo){
+    public String postFormNewTopo(@ModelAttribute Topo topo, Model model){
+        model.addAttribute("isConnected", userAccountService.isUserConnected());
         topoService.addNewTopo(topo);
         return "topos/results";
     }
 
     @GetMapping("/edittopo/{id}")
     public String updateTopo(@PathVariable("id") Long id, Model model){
+        model.addAttribute("isConnected", userAccountService.isUserConnected());
         model.addAttribute("currentTopo", topoRepo.findById(id).get());
         return "topos/update";
     }
 
     @PostMapping("/updatetopo/{id}")
     public String postUpdateTopo(@PathVariable("id") Long id, @Validated Topo topo, BindingResult result, Model model){
-    if (result.hasErrors()) {
-        topo.setId(id);
-        return "topos/update";
-    }
-    topoService.addNewTopo(topo);
-    return "topos/results";
+        model.addAttribute("isConnected", userAccountService.isUserConnected());
+        if (result.hasErrors()) {
+            topo.setId(id);
+            return "topos/update";
+        }
+        topoService.addNewTopo(topo);
+        return "topos/results";
     }
 
     @GetMapping("/deletetopo/{id}")
     public String deleteTopo(@PathVariable("id") long id, Model model) {
         topoRepo.delete(topoRepo.findById(id).get());
+        model.addAttribute("isConnected", userAccountService.isUserConnected());
         model.addAttribute("currentUser", userAccountService.getCurrentUserAccount());
         model.addAttribute("currentTopos", topoService.getToposByCurrentUser());
         return "useraccounts/testLogin";
     }
 
     @GetMapping("/asktopo/{id}")
-    public String askForTopo(@PathVariable("id") long id) {
+    public String askForTopo(@PathVariable("id") long id, Model model) {
+        model.addAttribute("isConnected", userAccountService.isUserConnected());
         if (topoService.canBeRequested(id)){topoService.askForTopo(id);}
         return "topos/successRequestTopo";
     }
@@ -80,6 +89,7 @@ public class TopoController {
     @GetMapping("acceptrequest/{id}")
     public String acceptTopo(@PathVariable("id") long id, Model model) {
         topoService.acceptRequestTopo(id);
+        model.addAttribute("isConnected", userAccountService.isUserConnected());
         model.addAttribute("currentUser", userAccountService.getCurrentUserAccount());
         model.addAttribute("currentTopos", topoService.getToposByCurrentUser());
         model.addAttribute("currentRequester", topoService.getUserRequesting(id));
@@ -89,6 +99,7 @@ public class TopoController {
     @GetMapping("declinerequest/{id}")
     public String declineTopo(@PathVariable("id") long id, Model model) {
         topoService.declineRequestTopo(id);
+        model.addAttribute("isConnected", userAccountService.isUserConnected());
         model.addAttribute("currentUser", userAccountService.getCurrentUserAccount());
         model.addAttribute("currentTopos", topoService.getToposByCurrentUser());
         return "useraccounts/testLogin";
