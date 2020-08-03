@@ -7,19 +7,21 @@
 </head>
 <body>
 <div th:insert="index.html :: menu"/>
-<form th:action="@{/registerroutesave/{id}(id=${currentSector.id})}" th:object="${route}" method="post">
+<div class="container">
+    <form th:action="@{/registerroutesave/{id}(id=${currentSector.id})}" th:object="${route}" method="post">
+        <div class="form-group-sm">
+            <label for="titre">Nom :</label>
+            <input class="form-control" type="text" id="titre" th:field="*{name}">
+        </div>
+        <div class="form-group-sm">
+            <label for="pitchQuantity">Nombre de longueur(s) :</label>
+            <input class="form-control" type="number" th:min="0" id="pitchQuantity" th:field="*{pitchQuantity}">
+        </div>
 
-    <label for="titre">Nom :</label>
-    <input type="text" id="titre" th:field="*{name}">
-    <br/>
+        <input type="submit" value="Enregistrer">
 
-    <label for="pitchQuantity">Nombre de longueur(s) :</label>
-    <input type="number" th:min="0" id="pitchQuantity" th:field="*{pitchQuantity}">
-    <br/>
-
-    <input type="submit" value="Enregistrer">
-
-</form>
+    </form>
+</div>
 <div th:insert="index.html :: scripts"/>
 </body>
 </html>

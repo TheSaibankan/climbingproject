@@ -13,7 +13,7 @@ import java.util.Collections;
  */
 public class UserPrincipal implements UserDetails {
 
-    private UserAccount userAccount;
+    private final UserAccount userAccount;
 
     public UserPrincipal(UserAccount userAccount) {
         this.userAccount = userAccount;

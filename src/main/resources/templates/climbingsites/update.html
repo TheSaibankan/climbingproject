@@ -7,33 +7,38 @@
 </head>
 <body>
 <div th:insert="index.html :: menu"/>
-<form th:action="@{/updatespot/{id}(id=${currentSpot.id})}" th:object="${currentSpot}" method="post">
+<div class="container">
+    <form th:action="@{/updatespot/{id}(id=${currentSpot.id})}" th:object="${currentSpot}" method="post">
 
-    <label for="titre">Nom :</label>
-    <input type="text" id="titre" th:field="*{name}">
-    <br/>
+        <div class="form-group-sm">
+            <label for="titre">Nom :</label>
+            <input class="form-control" type="text" id="titre" th:field="*{name}">
+        </div>
 
-    <label for="description">Description :</label>
-    <textarea id="description" th:field="*{description}"/>
-    <br/>
+        <div class="form-group-sm">
+            <label for="description">Description :</label>
+            <textarea class="form-control" id="description" th:field="*{description}"/>
+        </div>
 
-    <label for="location">Location :</label>
-    <input type="text" id="location" th:field="*{location}">
-    <br/>
+        <div class="form-group-sm">
+            <label for="location">Location :</label>
+            <input class="form-control" type="text" id="location" th:field="*{location}">
+        </div>
 
-    <label for="cotation">Cotation :</label>
-    <input type="text" id="cotation" th:field="*{cotation}">
-    <br/>
+        <div class="form-group-sm">
+            <label for="cotation">Cotation :</label>
+            <input class="form-control" type="text" id="cotation" th:field="*{cotation}">
+        </div>
 
-    <div th:if="${currentUser.admin == true}">
-        <label for="official">Officiel ?</label>
-        <input type="checkbox" id="official" th:field="*{official}">
-        <br/>
-    </div>
+        <div class="form-group-sm" th:if="${currentUser.admin == true}">
+            <label for="official">Officiel ?</label>
+            <input class="checkbox" type="checkbox" id="official" th:field="*{official}">
+        </div>
 
-    <input type="submit" value="Enregistrer"> <form/>
+        <input type="submit" value="Enregistrer"> <form/>
 
-</form>
+    </form>
+</div>
 <div th:insert="index.html :: scripts"/>
 </body>
 </html>

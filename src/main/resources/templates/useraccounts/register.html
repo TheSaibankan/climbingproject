@@ -7,30 +7,34 @@
 </head>
 <body>
 <div th:insert="index.html :: menu"/>
-<form th:action="@{/registersave}" th:object="${userAccount}" method="post">
-    Nom :
-    <input type="text" th:field="*{lastName}">
-    <br/>
+<div class="container">
+    <form th:action="@{/registersave}" th:object="${userAccount}" method="post">
 
-    Prénom :
-    <input type="text" th:field="*{firstName}">
-    <br/>
+        <div class="form-group-sm">
+            <label for="lastName">Nom de famille :</label>
+            <input id="lastName" class="form-control" name="lastName" type="text" th:field="*{lastName}">
+        </div>
+        <div class="form-group-sm">
+            <label for="firstName">Prénom :</label>
+            <input id="firstName" class="form-control" name="firstName" type="text" th:field="*{firstName}">
+        </div>
+        <div class="form-group-sm">
+            <label for="email">Email :</label>
+            <input id="email" class="form-control" name="email" type="email" th:field="*{email}">
+        </div>
+        <div class="form-group-sm">
+            <label for="login">Login :</label>
+            <input id="login" class="form-control" name="login" type="text" th:field="*{login}">
+        </div>
+        <div class="form-group-sm">
+            <label for="password">Mot de passe :</label>
+            <input id="password" class="form-control" name="password" type="password" th:field="*{password}">
+        </div>
 
-    E-mail :
-    <input type="email" th:field="*{email}">
-    <br/>
+        <input type="submit" value="S'inscrire">
 
-    Login :
-    <input type="text" th:field="*{login}">
-    <br/>
-
-    Password :
-    <input type="password" th:field="*{password}">
-    <br/>
-
-    <input type="submit" value="S'inscrire">
-
-</form>
+    </form>
+</div>
 <div th:insert="index.html :: scripts"/>
 </body>
 </html>

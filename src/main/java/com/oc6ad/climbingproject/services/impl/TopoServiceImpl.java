@@ -103,12 +103,7 @@ public class TopoServiceImpl extends AbstractService<Topo, Long> implements Topo
     public boolean canBeRequested(Long id) {
         Topo topo = topoRepo.findById(id).get();
         UserAccount currentUser = userAccountService.getCurrentUserAccount();
-        if (topo.getReceiver() != currentUser && topo.getOwner() != currentUser){
-            return true;
-        }
-        else {
-            return false;
-        }
+        return topo.getReceiver() != currentUser && topo.getOwner() != currentUser;
     }
 
     @Override

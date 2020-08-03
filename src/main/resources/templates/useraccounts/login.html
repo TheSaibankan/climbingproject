@@ -7,20 +7,26 @@
 </head>
 <body>
 <div th:insert="index.html :: menu"/>
-<h1>Se connecter</h1>
-<div th:if="${param.error}">
-    Le pseudo et le mot de pass sont invalides.</div>
-<div th:if="${param.logout}">
-    Déconnexion réussie.</div>
-<form th:action="@{/login}" method="post">
-    <div>
-        <input type="text" name="username" placeholder="Pseudo"/>
+<div class="container">
+    <h1>Se connecter</h1>
+    <div th:if="${param.error}">
+        Le pseudo et le mot de pass sont invalides.
     </div>
-    <div>
-        <input type="password" name="password" placeholder="Mot de passe"/>
+    <div th:if="${param.logout}">
+        Déconnexion réussie.
     </div>
-    <input type="submit" value="Se connecter" />
-</form>
+    <form th:action="@{/login}" method="post">
+        <div class="form-group-sm">
+            <label for="username">Votre pseudo :</label>
+            <input class="form-control" type="text" id="username" name="username" placeholder="Pseudo"/>
+        </div>
+        <div class="form-group-sm">
+            <label for="password">Votre mot de passe :</label>
+            <input class="form-control" type="password" id="password" name="password" placeholder="Mot de passe"/>
+        </div>
+        <input type="submit" value="Se connecter"/>
+    </form>
+</div>
 <div th:insert="index.html :: scripts"/>
 </body>
 </html>

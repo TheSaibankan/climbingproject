@@ -59,12 +59,19 @@ figure
 {
 	border-bottom: 2px blue solid;
 }
-p, a, label
+p, label
 {
 	text-align: justify;
 	text-shadow: white 0.1em 0.1em 0.2em;
 	text-align: center;
 
+}
+a:link, a:active, a:visited
+{
+	text-align: justify;
+	text-shadow: white 0.1em 0.1em 0.2em;
+	text-align: center;
+	color: red;
 }
 figcaption
 {
@@ -81,27 +88,7 @@ table
 	margin: auto;
 	background-color: white;
 }
-.inscrire
-{
-	width: 25%;
-	height: 40px;
-	font-size: xx-large;
-	display: flex;
-	justify-content: center;
-	margin: auto;
-	border: 1px red solid;
-}
-.formulaire
-{
-	display: flex;
-	flex-wrap: wrap;
-	flex-direction: column;
-	margin: initial;
-}
-.choix
-{
-	display: block;
-}
+
 .spot
 {
 	text-align: center;

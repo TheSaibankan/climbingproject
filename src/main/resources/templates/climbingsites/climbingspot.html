@@ -20,7 +20,7 @@
     <h2>Secteurs de ce spot</h2>
     <a th:if="${isConnected}" th:href="@{/addnewsector/{id}(id=${currentSpot.id})}">Ajouter un secteur</a>
 
-    <ul th:each="sector : ${currentSectors}">
+    <ul class="list-group" th:each="sector : ${currentSectors}">
         <li>
             <span th:text="${sector.name}"/>
             <div th:if="${isConnected}">
@@ -29,7 +29,7 @@
                 <a th:href="@{/addnewroute/{id}(id=${sector.id})}">Ajouter une route</a>
             </div>
         </li>
-        <ul th:each="route : ${sector.routes}">
+        <ul class="list-group" th:each="route : ${sector.routes}">
             <li><p><span th:text="${route.name}"/> <a th:if="${isConnected}" th:href="@{/deleteroute/{id}(id=${route.id})}">Supprimer</a></p></li>
             <li><p>Quantité de longueurs : <span th:text="${route.pitchQuantity}"/></p></li>
             </br>
