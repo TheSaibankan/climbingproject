@@ -13,4 +13,6 @@ public interface RouteService extends CrudService<Route, Long> {
     void addNewRoute(Long sectorId, Route route);
 
     ClimbingSpot retrieveClimbingSpot(Long routeId);
+
+    Set<Route> findAllRoutesBySectorId(Long id);
 }

@@ -3,6 +3,8 @@ package com.oc6ad.climbingproject.services;
 import com.oc6ad.climbingproject.model.ClimbingSpot;
 import com.oc6ad.climbingproject.model.Sector;
 
+import java.util.Set;
+
 public interface SectorService extends CrudService<Sector, Long>{
 
     void addNewSector(Long spotId, Sector sector);
@@ -14,4 +16,6 @@ public interface SectorService extends CrudService<Sector, Long>{
     void deleteAllBySpotId(Long spotId);
 
     ClimbingSpot retrieveClimbingSpot(Long sectorId);
+
+    Set<Sector> findAllByClimbingSpotId(Long id);
 }

@@ -8,7 +8,7 @@
 <body>
 
 <div th:insert="index.html :: menu"/>
-<div class="spot">
+<div class="container">
     <h1 th:text="${currentSpot.name}"></h1>
     <h4 th:text="${currentSpot.location}"></h4>
     <h5 th:if="${currentSpot.official == true}"><strong>Vous consultez un spot officiel !</strong></h5>

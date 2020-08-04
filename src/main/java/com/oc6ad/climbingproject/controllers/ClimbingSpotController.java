@@ -125,7 +125,7 @@ public class ClimbingSpotController {
             climbingSpot.setId(id);
             return "climbingsites/update";
         }
-        climbingSpotService.addNewSpot(climbingSpot);
+        climbingSpotService.updateSpot(climbingSpot, id);
         return "climbingsites/results";
     }
 

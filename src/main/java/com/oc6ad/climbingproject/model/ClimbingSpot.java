@@ -24,7 +24,7 @@ public class ClimbingSpot {
 
     @OneToMany
     @JoinColumn(name="climbing_spot_id")
-    private List<Comment> comments;
+    private Set<Comment> comments;
 
     @ManyToOne
     private UserAccount userAccount;
@@ -110,11 +110,11 @@ public class ClimbingSpot {
         this.sectors = sectors;
     }
 
-    public List<Comment> getComments() {
+    public Set<Comment> getComments() {
         return comments;
     }
 
-    public ClimbingSpot setComments(List<Comment> comments) {
+    public ClimbingSpot setComments(Set<Comment> comments) {
         this.comments = comments;
         return this;
     }

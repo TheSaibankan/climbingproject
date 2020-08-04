@@ -16,4 +16,6 @@ public interface SectorRepo extends CrudRepository<Sector, Long> {
      * @param id
      */
     void deleteAllByClimbingSpot_Id(Long id);
+
+    Set<Sector> findAllByClimbingSpot_Id(Long id);
 }

@@ -18,7 +18,6 @@ public class UserAccount {
     private String email;
     private String login;
     private String password;
-    private String salt;
     private boolean isAdmin;
 
     @OneToMany
@@ -37,24 +36,16 @@ public class UserAccount {
 
     }
 
-    public UserAccount(Long id, String firstName, String lastName, String email, String login, String password, String salt, boolean isAdmin) {
+    public UserAccount(Long id, String firstName, String lastName, String email, String login, String password, boolean isAdmin) {
         this.id = id;
         this.firstName = firstName;
         this.lastName = lastName;
         this.email = email;
         this.login = login;
         this.password = password;
-        this.salt = salt;
         this.isAdmin = isAdmin;
     }
 
-    public String getSalt() {
-        return salt;
-    }
-
-    public void setSalt(String salt) {
-        this.salt = salt;
-    }
 
     public Set<Comment> getComments() {
         return comments;

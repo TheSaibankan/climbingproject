@@ -26,6 +26,8 @@ public class ClimbingSpotServiceImpl extends AbstractService<ClimbingSpot, Long>
     private SectorService sectorService;
     @Autowired
     private RouteService routeService;
+    @Autowired
+    private CommentService commentService;
 
     /**
      * Returns all spots
@@ -42,6 +44,10 @@ public class ClimbingSpotServiceImpl extends AbstractService<ClimbingSpot, Long>
      */
     @Override
     public void addNewSpot(ClimbingSpot climbingSpot){
+        Long id = climbingSpot.getId();
+        if (climbingSpotRepo.existsById(id) == true) {
+            climbingSpot.setId(id);
+        }
         climbingSpot.setUserAccount(userAccountService.getCurrentUserAccount());
         save(climbingSpot);
     }
@@ -65,6 +71,20 @@ public class ClimbingSpotServiceImpl extends AbstractService<ClimbingSpot, Long>
     @Override
     public List<ClimbingSpot> findBySearch(String search){
         return climbingSpotRepo.findBySearch(search.toLowerCase());
+    }
+
+    /**
+     * Update a spot
+     * @param climbingSpot
+     * @param spotId
+     */
+    @Override
+    public void updateSpot(ClimbingSpot climbingSpot, Long spotId){
+        climbingSpot.setId(spotId);
+        climbingSpot.setUserAccount(userAccountService.getCurrentUserAccount());
+        climbingSpot.setSectors(sectorService.findAllByClimbingSpotId(spotId));
+        climbingSpot.setComments(commentService.findAllBySpot(spotId));
+        save(climbingSpot);
     }
 
     /**

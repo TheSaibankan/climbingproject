@@ -15,16 +15,8 @@ public class Cryptpass {
         return BCrypt.hashpw(password, generatedSalt);
     }
 
-    public boolean checkPass(String clearPassword, String salt, String hashpass) {
-        return BCrypt.checkpw(clearPassword, hashpass);
-    }
-
     public String getSalt() {
         return BCrypt.gensalt(10);
     }
 
-    public boolean checkPass(UserAccount user, String clearPassword) {
-        BCrypt.hashpw(clearPassword, user.getSalt());
-        return BCrypt.checkpw(clearPassword, user.getPassword());
-    }
 }

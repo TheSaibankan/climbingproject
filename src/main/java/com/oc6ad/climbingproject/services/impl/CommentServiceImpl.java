@@ -7,6 +7,7 @@ import com.oc6ad.climbingproject.services.AbstractService;
 import com.oc6ad.climbingproject.services.ClimbingSpotService;
 import com.oc6ad.climbingproject.services.CommentService;
 import com.oc6ad.climbingproject.services.UserAccountService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.stereotype.Service;
 
@@ -19,13 +20,14 @@ public class CommentServiceImpl extends AbstractService<Comment, Long> implement
 
     private final CommentRepo commentRepo;
     private final UserAccountService userAccountService;
-    private final ClimbingSpotService climbingSpotService;
 
-    public CommentServiceImpl(CommentRepo commentRepo, UserAccountService userAccountService, ClimbingSpotService climbingSpotService) {
+    public CommentServiceImpl(CommentRepo commentRepo, UserAccountService userAccountService) {
         this.commentRepo = commentRepo;
         this.userAccountService = userAccountService;
-        this.climbingSpotService = climbingSpotService;
     }
+
+    @Autowired
+    private ClimbingSpotService climbingSpotService;
 
     /**
      * Add and save a new comment

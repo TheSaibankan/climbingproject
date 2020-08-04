@@ -11,6 +11,7 @@ import org.springframework.data.repository.CrudRepository;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
+import java.util.Set;
 
 @Service
 @Transactional
@@ -61,6 +62,16 @@ public class RouteServiceImpl extends AbstractService<Route, Long> implements Ro
     @Override
     public ClimbingSpot retrieveClimbingSpot(Long routeId){
         return routeRepo.findById(routeId).get().getSector().getClimbingSpot();
+    }
+
+    /**
+     * Retrieve all routes via the sector's ID
+     * @param id
+     * @return Set<Route>
+     */
+    @Override
+    public Set<Route> findAllRoutesBySectorId(Long id){
+        return routeRepo.findAllBySector_Id(id);
     }
 
     @Override

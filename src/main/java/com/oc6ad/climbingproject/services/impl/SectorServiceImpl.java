@@ -12,6 +12,7 @@ import org.springframework.data.repository.CrudRepository;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
+import java.util.Set;
 
 @Service
 @Transactional
@@ -49,6 +50,7 @@ public class SectorServiceImpl extends AbstractService<Sector, Long> implements 
     public void updateSector(Long spotId, Long sectorId, Sector sector){
         sector.setId(sectorId);
         sector.setClimbingSpot(climbingSpotService.findById(spotId).get());
+        sector.setRoutes(routeService.findAllRoutesBySectorId(sectorId));
         save(sector);
     }
 
@@ -79,6 +81,16 @@ public class SectorServiceImpl extends AbstractService<Sector, Long> implements 
     @Override
     public ClimbingSpot retrieveClimbingSpot(Long sectorId){
         return sectorRepo.findById(sectorId).get().getClimbingSpot();
+    }
+
+    /**
+     * Find all sectors via the spot's ID
+     * @param id
+     * @return Set<Sector>
+     */
+    @Override
+    public Set<Sector> findAllByClimbingSpotId(Long id){
+        return sectorRepo.findAllByClimbingSpot_Id(id);
     }
 
 

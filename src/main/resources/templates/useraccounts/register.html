@@ -8,6 +8,9 @@
 <body>
 <div th:insert="index.html :: menu"/>
 <div class="container">
+    <div th:if="${userAlreadyExists == true}" class="alert alert-danger" role="alert">
+        <p>Ce login est déjà utilisé !</p>
+    </div>
     <form th:action="@{/registersave}" th:object="${userAccount}" method="post">
 
         <div class="form-group-sm">

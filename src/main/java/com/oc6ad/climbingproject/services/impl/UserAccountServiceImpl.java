@@ -34,19 +34,27 @@ public class UserAccountServiceImpl extends AbstractService<UserAccount, Long> i
     public void addUserAccount(UserAccount userAccount) {
         String generatedSalt = cryptpass.getSalt();
         userAccount.setPassword(cryptpass.encrypt(userAccount.getPassword(), generatedSalt));
-        userAccount.setSalt(generatedSalt);
         save(userAccount);
     }
 
     /**
-     * Find an account via its login
+     * Verify the existence of an account via its login
      * @param login
-     * @return userAccount
+     * @return Boolean
      */
     @Override
-    public UserAccount loadUserByLogin(String login) {
-        UserAccount userAccount = userAccountRepo.findByLogin(login);
-        return userAccount;
+    public Boolean existsByLogin(String login) {
+        return userAccountRepo.existsByLogin(login);
+    }
+
+    /**
+     * Verify the existence of an user via the login
+     * @param login
+     * @return UserAccount
+     */
+    @Override
+    public UserAccount findByLogin(String login) {
+        return userAccountRepo.findByLogin(login);
     }
 
     /**

@@ -19,4 +19,6 @@ public interface RouteRepo extends CrudRepository<Route, Long> {
      * @param id
      */
     void deleteAllBySector_Id(Long id);
+
+    Set<Route> findAllBySector_Id(Long id);
 }

@@ -13,4 +13,12 @@ public interface UserAccountRepo extends CrudRepository<UserAccount, Long> {
      * @return UserAccount
      */
     UserAccount findByLogin(String login);
+
+
+    /**
+     * Check the existence of an account
+     * @param login
+     * @return Boolean
+     */
+    Boolean existsByLogin(String login);
 }

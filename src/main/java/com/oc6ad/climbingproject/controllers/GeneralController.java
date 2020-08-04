@@ -48,8 +48,13 @@ public class GeneralController {
 
     @PostMapping("/registersave")
     public String postFormNewUserAccount(@ModelAttribute UserAccount userAccount, Model model){
-        userAccountService.addUserAccount(userAccount);
         model.addAttribute("isConnected", userAccountService.isUserConnected());
+        if (userAccountService.existsByLogin(userAccount.getLogin()) == true){
+            model.addAttribute("userAlreadyExists", true);
+            model.addAttribute("userAccount", new UserAccount());
+            return "useraccounts/register";
+        }
+        userAccountService.addUserAccount(userAccount);
         return "useraccounts/results";
     }
 
