@@ -7,5 +7,5 @@ Dans le dossier "bin" de Tomcat se trouve le fichier "catalina.bat". Lancez-le d
 
 Le site est maintenant accessible via Tomcat.
 
-Ce projet utilise Hibernate (Spring JPA). Pour configurer la base de donnée, il faut accéder au fichier de configuration Spring "application.properties".
+Pour configurer la base de donnée, il faut accéder au fichier de configuration Spring "application.properties".
 Le fichier SQL nommé "Initialize.sql" permet d'insérer des données de test dans la base de données.
