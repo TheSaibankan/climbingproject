@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<div th:insert="index.html :: css"/>
+<head>
+    <meta charset="UTF-8">
+    <title>Nouvelle route</title>
+</head>
+<body>
+<div th:insert="index.html :: menu"/>
+<div class="container">
+    <form th:action="@{/registerroutesave/{id}(id=${currentSector.id})}" th:object="${route}" method="post">
+        <div class="form-group-sm">
+            <label for="titre">Nom :</label>
+            <input class="form-control" type="text" id="titre" th:field="*{name}">
+        </div>
+        <div class="form-group-sm">
+            <label for="pitchQuantity">Nombre de longueur(s) :</label>
+            <input class="form-control" type="number" th:min="0" id="pitchQuantity" th:field="*{pitchQuantity}">
+        </div>
+
+        <input type="submit" value="Enregistrer">
+
+    </form>
+</div>
+<div th:insert="index.html :: scripts"/>
+</body>
+</html>

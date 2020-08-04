@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="https://www.thymeleaf.org">
+<div th:insert="index.html :: css"/>
+<head>
+    <meta charset="UTF-8">
+    <title>Espace personnel</title>
+</head>
+<body>
+<div th:insert="index.html :: menu"/>
+<h2>Comment allez-vous aujourd'hui, <span th:text="${currentUser.getFirstName()}"/> ?</h2>
+<p><a href="/logout">Se déconnecter</a></p>
+
+<h3>Voici la liste des topos que vous avez enregistré :</h3>
+
+<a href="/registertopo">Enregistrer un nouveau topo</a>
+<table>
+
+    <tr th:each="currentTopo : ${currentTopos}">
+        <td th:text="${currentTopo.name}"></td>
+        <td th:text="${currentTopo.description}"></td>
+        <td>
+            <div th:switch="${currentTopo.available}">
+                <p th:case="true">Disponible</p>
+                <p th:case="false">Indisponible</p>
+            </div>
+        </td>
+        <td>
+            <div th:if="${currentTopo.hasBeenRequested}">
+                <p >Ce topo a été demandé !
+                    <a th:href="@{/acceptrequest/{id}(id=${currentTopo.id})}">Accepter</a>
+                    <a th:href="@{/declinerequest/{id}(id=${currentTopo.id})}">Décliner</a>
+                </p>
+            </div>
+        </td>
+        <td><a th:href="@{/edittopo/{id}(id=${currentTopo.id})}">Modifier</a></td>
+        <td><a th:href="@{/deletetopo/{id}(id=${currentTopo.id})}">Supprimer</a></td>
+        <td th:if="${currentTopo.hasBeenAccepted}">
+            <p>E-mail de l'utilisateur :</p><p th:text="${currentTopo.receiver.email}"/>
+        </td>
+    </tr>
+</table>
+<div th:insert="index.html :: scripts"/>
+</body>
+</html>

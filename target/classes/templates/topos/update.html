@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<div th:insert="index.html :: css"/>
+<head>
+    <meta charset="UTF-8">
+    <title>Modifier le topo</title>
+</head>
+<body>
+<div th:insert="index.html :: menu"/>
+<form th:action="@{/updatetopo/{id}(id=${currentTopo.id})}" th:object="${currentTopo}" method="post">
+
+    <div class="form-group-sm">
+        <label for="titre">Titre :</label>
+        <input class="form-control" type="text" id="titre" th:field="*{name}">
+    </div>
+    <div class="form-group-sm">
+        <label for="description">Description :</label>
+        <textarea class="form-control" id="description" th:field="*{description}"/>
+    </div>
+    <div class="form-group-sm">
+        <label for="location">Location :</label>
+        <input class="form-control" type="text" id="location" th:field="*{location}">
+    </div>
+    <div class="form-group-sm">
+        <label for="disponibilité">Disponible ? :</label>
+        <input class="checkbox" type="checkbox" id="disponibilité" th:field="*{available}">
+    </div>
+
+    <input type="submit" value="Enregistrer">
+
+</form>
+<div th:insert="index.html :: scripts"/>
+</body>
+</html>

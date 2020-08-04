@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<div th:insert="index.html :: css"/>
+<head>
+    <meta charset="UTF-8">
+    <title>Nouveau secteur</title>
+</head>
+<body>
+<div th:insert="index.html :: menu"/>
+<div class="container">
+    <form th:action="@{/registersectorsave/{id}(id=${currentSpot.id})}" th:object="${sector}" method="post">
+        <div class="form-group-sm">
+            <label for="titre">Nom :</label>
+            <input class="form-control" type="text" id="titre" th:field="*{name}">
+        </div>
+
+        <input type="submit" value="Enregistrer"> <form/>
+
+    </form>
+</div>
+<div th:insert="index.html :: scripts"/>
+</body>
+</html>

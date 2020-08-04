@@ -1,0 +1,15 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<div th:insert="index.html :: css"/>
+<head>
+    <meta charset="UTF-8">
+    <title>Spot enregistré !</title>
+</head>
+<body>
+<div th:insert="index.html :: menu"/>
+<h1>Bravo !</h1>
+<p><strong>Votre requête a été traitée avec succès !</strong></p>
+<a th:href="@{/climbingspot/{id}(id=${spotId})}">Revenir sur le spot</a>
+<div th:insert="index.html :: scripts"/>
+</body>
+</html>

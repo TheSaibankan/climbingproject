@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<div th:insert="index.html :: css"/>
+<head>
+    <meta charset="UTF-8">
+    <title>Inscription</title>
+</head>
+<body>
+<div th:insert="index.html :: menu"/>
+<div class="container">
+    <div th:if="${userAlreadyExists == true}" class="alert alert-danger" role="alert">
+        <p>Ce login est déjà utilisé !</p>
+    </div>
+    <form th:action="@{/registersave}" th:object="${userAccount}" method="post">
+
+        <div class="form-group-sm">
+            <label for="lastName">Nom de famille :</label>
+            <input id="lastName" class="form-control" name="lastName" type="text" th:field="*{lastName}">
+        </div>
+        <div class="form-group-sm">
+            <label for="firstName">Prénom :</label>
+            <input id="firstName" class="form-control" name="firstName" type="text" th:field="*{firstName}">
+        </div>
+        <div class="form-group-sm">
+            <label for="email">Email :</label>
+            <input id="email" class="form-control" name="email" type="email" th:field="*{email}">
+        </div>
+        <div class="form-group-sm">
+            <label for="login">Login :</label>
+            <input id="login" class="form-control" name="login" type="text" th:field="*{login}">
+        </div>
+        <div class="form-group-sm">
+            <label for="password">Mot de passe :</label>
+            <input id="password" class="form-control" name="password" type="password" th:field="*{password}">
+        </div>
+
+        <input type="submit" value="S'inscrire">
+
+    </form>
+</div>
+<div th:insert="index.html :: scripts"/>
+</body>
+</html>

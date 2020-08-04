@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.springframework.org/security/tags">
+<div th:insert="index.html :: css"/>
+<head>
+    <meta charset="UTF-8">
+    <title>Test de lecture de liste</title>
+</head>
+<body>
+<div th:insert="index.html :: menu"/>
+<h1>Liste des topos</h1>
+<table>
+    <tr>
+        <th>Nom</th>
+        <th>Description</th>
+        <th>Disponible ?</th>
+    </tr>
+    <tr th:each="topo : ${topos}">
+        <td th:text="${topo.name}"></td>
+        <td th:text="${topo.description}"></td>
+        <td>
+            <span th:if="${topo.available}">Oui !</span>
+            <span th:if="${not topo.available}">Non...</span>
+        </td>
+        <div th:if="${isConnected == true}">
+            <td>
+                <p><a th:href="@{/asktopo/{id}(id=${topo.id})}">Demander le topo</a></p>
+                <p th:if="${topo.hasBeenRequested == true}">Ce topo a déjà été demandé.</p>
+            </td>
+        </div>
+    </tr>
+</table>
+<div th:insert="index.html :: scripts"/>
+</body>
+</html>
