@@ -21,7 +21,7 @@
             <span th:if="${topo.available}">Oui !</span>
             <span th:if="${not topo.available}">Non...</span>
         </td>
-        <div th:if="${isConnected == true}">
+        <div th:if="${isConnected == true && currentUser.id != topo.owner.id}">
             <td>
                 <p><a th:href="@{/asktopo/{id}(id=${topo.id})}">Demander le topo</a></p>
                 <p th:if="${topo.hasBeenRequested == true}">Ce topo a déjà été demandé.</p>

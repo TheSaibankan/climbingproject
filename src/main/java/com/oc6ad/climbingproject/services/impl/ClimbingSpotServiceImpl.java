@@ -44,10 +44,6 @@ public class ClimbingSpotServiceImpl extends AbstractService<ClimbingSpot, Long>
      */
     @Override
     public void addNewSpot(ClimbingSpot climbingSpot){
-        Long id = climbingSpot.getId();
-        if (climbingSpotRepo.existsById(id) == true) {
-            climbingSpot.setId(id);
-        }
         climbingSpot.setUserAccount(userAccountService.getCurrentUserAccount());
         save(climbingSpot);
     }
