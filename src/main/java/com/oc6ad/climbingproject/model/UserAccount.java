@@ -21,7 +21,7 @@ public class UserAccount {
     private boolean isAdmin;
 
     @OneToMany
-    @JoinColumn(name="user_account_id")
+    @JoinColumn(name="owner_id")
     private Set<Topo> topos = new HashSet<>();
 
     @OneToMany
