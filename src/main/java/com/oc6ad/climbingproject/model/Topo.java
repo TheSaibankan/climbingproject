@@ -22,7 +22,6 @@ public class Topo {
     private String name;
     private String description;
     private String location;
-    private String releaseDate;
     private boolean isAvailable;
 
     @ManyToOne
@@ -39,11 +38,10 @@ public class Topo {
 
     }
 
-    public Topo(String name, String description, String location, String releaseDate, boolean isAvailable, UserAccount ownerId, UserAccount receiverId, boolean hasBeenRequested, boolean hasBeenAccepted) {
+    public Topo(String name, String description, String location, boolean isAvailable, UserAccount ownerId, UserAccount receiverId, boolean hasBeenRequested, boolean hasBeenAccepted) {
         this.name = name;
         this.description = description;
         this.location = location;
-        this.releaseDate = releaseDate;
         this.isAvailable = isAvailable;
         this.owner = owner;
         this.receiver = receiver;
@@ -116,14 +114,6 @@ public class Topo {
         this.location = location;
     }
 
-    public String getReleaseDate() {
-        return releaseDate;
-    }
-
-    public void setReleaseDate(String releaseDate) {
-        this.releaseDate = releaseDate;
-    }
-
     public boolean isAvailable() {
         return isAvailable;
     }
@@ -139,7 +129,6 @@ public class Topo {
                 ", name='" + name + '\'' +
                 ", description='" + description + '\'' +
                 ", location='" + location + '\'' +
-                ", releaseDate='" + releaseDate + '\'' +
                 ", isAvailable=" + isAvailable +
                 ", ownerId=" + owner +
                 ", receiverId=" + receiver +
@@ -152,11 +141,11 @@ public class Topo {
         if (o == null || getClass() != o.getClass()) return false;
         Topo topo = (Topo) o;
         return Objects.equals(name, topo.name) &&
-                Objects.equals(releaseDate, topo.releaseDate);
+                Objects.equals(location, topo.location);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(name, releaseDate);
+        return Objects.hash(name, location);
     }
 }
